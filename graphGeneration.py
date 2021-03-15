@@ -29,9 +29,10 @@ def generate_connected_graph(dimension, edge_density):
 	edges = {(0, 1)}
 	seed(rand_seed())
 	for ver in range(2, dimension):
-		edges.add((ver, randint(low = 0, high = ver)))
+		fixed = randint(low = 0, high = ver)))
+		edges.add((ver, fixed))
 		for oth in range(ver):
-			if(rand() <= edge_density):
+			if(rand() <= edge_density && oth != fixed):
 				edges.add((ver, oth))
 	print(edges)
 
