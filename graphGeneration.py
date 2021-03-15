@@ -25,14 +25,20 @@ def generate_graph(dimension, edge_density):
 	print(edges)
 
 def generate_connected_graph(dimension, edge_density):
+	# init vertices and edges
+	# //TODO alternative solution to allow the generation of empty or one-element graphs
 	vertices = set({0, 1})
 	edges = {(0, 1)}
+	# random seed generation
 	seed(rand_seed())
 	for ver in range(2, dimension):
-		fixed = randint(low = 0, high = ver)))
+		# set at least one random edge
+		# necessary for the generation of spanning trees
+		fixed = randint(low = 0, high = ver)
 		edges.add((ver, fixed))
 		for oth in range(ver):
-			if(rand() <= edge_density && oth != fixed):
+			# other edges generation based on probability
+			if(rand() <= edge_density and oth != fixed):
 				edges.add((ver, oth))
 	print(edges)
 
