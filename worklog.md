@@ -17,20 +17,27 @@ Generates a number of vertices specified by the `dimension` parameter, compute a
 
 However, the distribution of the random likelihoods assigned to each edge is not uniform, therefore the edge density might experience sensibile variations associated to null or minor variation of the density parameter. This issue might be solved in the future. 
 
-Graph generated using a medium density param
-
 ![Graph generated using a medium density param](img/graph1.png "") 
 
-Graph generated using a density param equal to zero
+*Graph generated using a medium density param*
 
 ![Graph generated using a density param equal to zero](img/graph2.png)
+
+
+*Graph generated using a density param equal to zero*
 
 ### `generate_connected_graph(dimension, edge_density)` 
 Generates a randomic instance of connected graph, containing a number of vertices defined by the `dimension` parameter.
 
 The method based on iteraction: generates a vertex, links it to another randomic vertex (impossible to obtain stand-alon vertices) and then iterate over the remaining vertices to create new edges. Edges creation is probabilistic and can be manage through the `edge_density`parameter (0 generates a spanning tree, 1 generates a graph where every vertex is connected with an edge to every other vertex of the graph). Even in this case there are problems correlated to the not uniform distribution of random likelyhoods.
 
-Here's some examples of graphs generated using this method.
 ![Graph generated using a medium density param](img/graph4.png "")
-![Graoh generated using a density param equal to zero](img/graph3.png)
+
+*Graph generated using a medium density param*
+
+![Graph generated using a density param equal to zero](img/graph3.png)
+
+*Graph generated using a density param equal to zero*
+
+
 
