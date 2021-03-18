@@ -13,7 +13,7 @@ Methods which randomly generate many graph istances are a compulsory prerequisit
 The library is based on the simplest possible implementation of a graph: vertices are represented by progressive positive integers, whereas edges are represented by two-element tuples. The library has two main methods, which generates two different types of graphs.
 
 ### `generate_graph(dimension, edge_density)` 
-Generates a number of vertices specified by the `dimension` parameter, compute all the possible edges between vertices (which correspond to all the possible 2-combination in the vertices set) and then attach them a randomic probability. The edges set is then pruned using the parameter `edge_density`, a float number in the range \[0,1] used to manage the number of edges that the final graph must contain (0 generates a graph with no edges, 1 generates a graph where every vertex is connected with an edge to every other vertex of the graph). 
+Generates a number of vertices specified by the `dimension` parameter, compute all the possible edges between vertices (which correspond to all the possible 2-combination in the vertices set) and then attach them a randomic probability. The edges set is then pruned using the parameter `edge_density`, a float number in the range \[0,1] used to manage the number of edges that the final graph must contain (0 generates a graph with no edges, 1 generates a complete graph). 
 
 However, the distribution of the random likelihoods assigned to each edge is not uniform, therefore the edge density might experience sensibile variations associated to null or minor variation of the density parameter. This issue might be solved in the future. 
 
@@ -29,7 +29,7 @@ However, the distribution of the random likelihoods assigned to each edge is not
 ### `generate_connected_graph(dimension, edge_density)` 
 Generates a randomic instance of connected graph, containing a number of vertices defined by the `dimension` parameter.
 
-The method based on iteraction: generates a vertex, links it to another randomic vertex (impossible to obtain stand-alon vertices) and then iterate over the remaining vertices to create new edges. Edges creation is probabilistic and can be manage through the `edge_density`parameter (0 generates a spanning tree, 1 generates a graph where every vertex is connected with an edge to every other vertex of the graph). Even in this case there are problems correlated to the not uniform distribution of random likelyhoods.
+The method based on iteraction: generates a vertex, links it to another randomic vertex (impossible to obtain stand-alon vertices) and then iterate over the remaining vertices to create new edges. Edges creation is probabilistic and can be manage through the `edge_density`parameter (0 generates a spanning tree, 1 generates a complete graph). Even in this case there are problems correlated to the not uniform distribution of random likelyhoods.
 
 ![Graph generated using a medium density param](img/graph4.png "")
 
