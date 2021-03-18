@@ -1,5 +1,6 @@
 from pyomo.environ import *
 from pyomo.opt import SolverFactory
+from graphGeneration import connected_graph
 
 # linear objective function definition
 def obj_rule(model):
@@ -29,8 +30,9 @@ if __name__ == '__main__':
 	import sys
 	model = buildmodel()
 	opt = SolverFactory('cplex_persistent')
-#	instance = model.create_instance(sys.argv[1])
-	instance = model.create_instance({None: {'vertices': {1,2,3,4,5}, 'edges':{(1,2),(2,5)}}})
+	graph = connected_graph(3, 1)
+	print(graph)
+	instance = model.create_instance(graph)
 	opt.set_instance(instance)
 	res = opt.solve(tee=True)
 	for p in instance.x:

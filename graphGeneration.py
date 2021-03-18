@@ -2,13 +2,13 @@
 from numpy.random import seed
 from numpy.random import rand
 from numpy.random import randint
+from numpy.random import uniform
 # import itertools library
 import itertools
 # import time library
 import time
 
-
-def generate_graph(dimension, edge_density):
+def graph(dimension, edge_density):
 	# create the vertices of the graph
 	vertices = set(range(dimension))
 	# compute all the possibile edges between new graph vertices
@@ -22,25 +22,28 @@ def generate_graph(dimension, edge_density):
 	for id,val in enumerate(pairs):
 		if probs[id] <= edge_density:
 			edges.add(val)
-	print(edges)
+	return {None: {'vertices': vertices, 'edges': edges}}
 
-def generate_connected_graph(dimension, edge_density):
+def connected_graph(dimension, edge_density):
 	# init vertices and edges
-	# //TODO alternative solution to allow the generation of empty or one-element graphs
-	vertices = set({0, 1})
-	edges = {(0, 1)}
+	vertices = {0}
+	edges = set()
 	# random seed generation
 	seed(rand_seed())
-	for ver in range(2, dimension):
+	for ver in range(1, dimension):
+		# add the new vertex to the graph
+		vertices.add(ver)
 		# set at least one random edge
 		# necessary for the generation of spanning trees
 		fixed = randint(low = 0, high = ver)
 		edges.add((ver, fixed))
+		# generate the probabilities for remaining vertices
 		for oth in range(ver):
 			# other edges generation based on probability
-			if(rand() <= edge_density and oth != fixed):
+	        	# duplicates edges are not added to the set
+			if(rand() <= edge_density):
 				edges.add((ver, oth))
-	print(edges)
+	return {None: {'vertices': {None: vertices}, 'edges': {None: edges}}}
 
 def rand_seed():
 	tm = int(time.time() * 1000.0)
@@ -51,5 +54,9 @@ def rand_seed():
 
 if __name__ == '__main__':
 	import sys
-	generate_connected_graph(5, float(sys.argv[1]))
+	x = generate_connected_graph(25, float(sys.argv[1]))
+	y = generate_graph(25, float(sys.argv[1]))
+	print(len(x[None]["edges"]));
+#	print(len(y[None]["edges"]));
+
 
