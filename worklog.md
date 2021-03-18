@@ -39,5 +39,8 @@ The method based on iteraction: generates a vertex, links it to another randomic
 
 *Graph generated using a density param equal to zero*
 
+**Update 18/3/21**
+Further analysis were performed on the probability distribution of the numpy.random.py(). I tried to use numpy.random.uniform() instead, but the results were more or less the same, so I opted to maintain the initial (and simpler) code. Return value was finally changed to the format required by the MIP solver. Minor bug fixies.
+
 
 
