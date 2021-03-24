@@ -4,7 +4,7 @@ import params
 
 # main
 if __name__ == "__main__":
-	id = 0
+	id = 1
 	for dim in params.DIME:
 		for den in params.DENS:
 			for sed in params.SEED:
