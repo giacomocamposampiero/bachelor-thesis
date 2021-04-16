@@ -17,12 +17,13 @@ def analyze(graph, plot = False):
     radius = nx.diameter(graph)
 
 def draw(graph):
-    nt = Network('700px', '700px')
+    nt = Network(height='100%', width='100%', bgcolor='#222222', font_color='white')
+    nt.barnes_hut()
     nt.from_nx(graph)
     nt.show('nx.html')
 
 if __name__ == "__main__":
     print("which graph: ")
     name = input()
-    graph = nx.read_adjlist("graph-instances/" + name)
+    graph = nx.read_adjlist("graph-instances/" + name+".adjlist")
     draw(graph)
