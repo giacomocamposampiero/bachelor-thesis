@@ -1,8 +1,27 @@
 # experiment params
-# DIME : define all the possible values of dimension that has to be used in graph generation
-# DENS : define all the possible values of edge density that has to be used in graph generation
-# SEED : define all the possibe seeds that have to be used in graph generation
 
-DIME = [50, 100]
-DENS = [0, 0.25] #, 0.5, 0.75, 1]
-SEED = [1, 2] #, 3, 5, 8, 13]
+# SEEDS : seeds for random generation, used in every graph
+SEEDS = [1,2,3]
+
+# GNP graph generation
+# GNP_N : number of nodes 
+# GNP_P : probability for edge generation
+GNP_N = [100, 200, 500]
+GNP_P = [0, 0.5, 0.9]
+
+# WS_N : number of nodes 
+# WS_P : probability of rewiring each edge
+# WS_K : number of neighbors joined with every new node 
+WS_N = [100, 200, 500]
+WS_P = [0, 0.5, 0.9]
+WS_K = [2, 5, 10]
+
+# RR_N : number of nodes 
+# RR_D : degree of each node
+RR_N = [100, 200, 500]
+RR_D = [2, 5, 10]
+
+# BA_N : number of nodes 
+# BA_M : number of edges to attach from a new node to existing nodes
+BA_N = [100, 200, 500]
+BA_M = [2, 5, 10]
