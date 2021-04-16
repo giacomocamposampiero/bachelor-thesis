@@ -16,8 +16,10 @@ if __name__ == "__main__":
         f = open(output_folder + id + ".txt", "w")
         cpx = cplex.Cplex(folder + name)
         #cpx.parameters.tuning.timelimit.set(300.0)
-        #cpx.set_results_stream(f)
+        # prevent cplex from writing output in the shell
+        cpx.set_results_stream(None)
         cpx.solve()
         print(cpx.solution.get_quality_metrics())
         f.close()
-        break
+        if name=='gnp_005.lp':
+            break
