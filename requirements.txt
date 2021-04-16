@@ -2,3 +2,4 @@ cplex
 numpy
 pyomo
 python
+networkx

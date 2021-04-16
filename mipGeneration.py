@@ -37,7 +37,7 @@ def create_instance(graph):
 
 if __name__ == "__main__":
     # folder where the adjacency list of graphs are stored
-    folder = "graphInstances/"
+    folder = "graph-instances/"
     # build a list of file names contained in the folder
     files = [f for f in listdir(folder) if isfile(join(folder, f))]
     # for each adjacency list
@@ -49,4 +49,4 @@ if __name__ == "__main__":
         # create the mip model
         instance = create_instance({None: {'vertices': {None: graph.nodes}, 'edges': {None: graph.edges}}})
         # write the mip model in the dedicated directory 
-        instance.write("mipInstances/"+id+".lp")
+        instance.write("mip-instances/"+id+".lp")
