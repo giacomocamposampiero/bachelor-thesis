@@ -22,7 +22,7 @@ def build_model():
     model.vertices = Set()
     model.edges = Set()
     # variables
-    model.x = Var(model.vertices, domain=NonNegativeIntegers, bounds=(0,1))
+    model.x = Var(model.vertices, domain=Binary)
     # objective
     model.obj = Objective(rule=obj_rule, sense=minimize)
     # constraints
@@ -48,5 +48,6 @@ if __name__ == "__main__":
         graph = nx.read_adjlist(folder + name)
         # create the mip model
         instance = create_instance({None: {'vertices': {None: graph.nodes}, 'edges': {None: graph.edges}}})
+        instance.pprint()
         # write the mip model in the dedicated directory 
         instance.write("mip-instances/"+id+".lp")

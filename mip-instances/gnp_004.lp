@@ -12529,7 +12529,7 @@ bounds
    0 <= x98 <= 1
    0 <= x99 <= 1
    0 <= x100 <= 1
-general
+binary
   x1
   x2
   x3
