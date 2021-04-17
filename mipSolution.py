@@ -1,4 +1,4 @@
-7# import CPLEX api
+# import CPLEX api
 import cplex
 # import libraries for graph file reading
 from os import listdir
@@ -19,4 +19,5 @@ if __name__ == "__main__":
         # write solving result in corresponding file
         cpx.set_results_stream(f)
         cpx.solve()
+        f.write(str(cpx.solution.get_objective_value()))
         f.close()

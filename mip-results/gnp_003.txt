@@ -52,3 +52,4 @@ Parallel b&c, 4 threads:
   Wait time (average)   =    0.00 sec.
                           ------------
 Total (root+branch&cut) =    1.38 sec. (431.27 ticks)
+91.0

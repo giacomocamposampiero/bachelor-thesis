@@ -40,7 +40,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
     # open csv file
     writer = csv.writer(open("data.csv", 'w'))
     # write label row
-    writer.writerow(['name', 'time', 'ticks', 'nodes', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust', 'radius', 'diameter'])
+    writer.writerow(['name', 'time', 'ticks','sol_nodes', 'nodes', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust', 'radius', 'diameter'])
     resFolder = "mip-results/"
     graphFolder = "graph-instances/"
     # build a list of file names contained in the folder
@@ -53,7 +53,8 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             lineList = fileHandle.readlines()
             fileHandle.close()
             graph = nx.read_adjlist(graphFolder + id + ".adjlist")
-            row = get_elapsed_times(id, lineList[-1])
+            row = get_elapsed_times(id, lineList[-2])
+            row.append(lineList[-1])
             row.extend(analyze_graph(graph))
             writer.writerow(row)
 
