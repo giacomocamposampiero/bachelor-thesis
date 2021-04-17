@@ -17,13 +17,13 @@ def graph_generator(generator, ns, seeds, ps = None, ks = None, ds = None, ms = 
             for d in ds:
                 for seed in seeds:
                     graphs.append(generator(d, n, seed))
-                    typ = "rr"
+                    typ = "rrg"
         elif(ms is not None):
             # Barabási–Albert graph
             for m in ms:
                 for seed in seeds:
                     graphs.append(generator(n, m, seed))
-                    typ = "ba"
+                    typ = "bag"
         else:
             for p in ps:
                 if(ks is not None):
@@ -31,7 +31,7 @@ def graph_generator(generator, ns, seeds, ps = None, ks = None, ds = None, ms = 
                     for k in ks:
                         for seed in seeds:
                             graphs.append(generator(n, k, p, seed))
-                            typ = "ws"
+                            typ = "wsg"
                 else:
                     # Erdős-Rényi graph
                     for seed in seeds:

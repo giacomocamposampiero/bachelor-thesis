@@ -7,7 +7,7 @@ from os.path import isfile, join
 if __name__ == "__main__":
     # folder where the lp models are stored
     folder = "mip-instances/"
-    output_folder = "results/"
+    output_folder = "mip-results/"
     # build a list of file names contained in the folder
     files = [f for f in listdir(folder) if isfile(join(folder, f))]
     # for each adjacency list

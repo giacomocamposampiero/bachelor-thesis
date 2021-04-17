@@ -48,6 +48,6 @@ if __name__ == "__main__":
         graph = nx.read_adjlist(folder + name)
         # create the mip model
         instance = create_instance({None: {'vertices': {None: graph.nodes}, 'edges': {None: graph.edges}}})
-        instance.pprint()
         # write the mip model in the dedicated directory 
         instance.write("mip-instances/"+id+".lp")
+        if name == "gnp_010.adjlist": break

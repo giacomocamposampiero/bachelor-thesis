@@ -31,27 +31,35 @@ def draw(graph):
     nt.from_nx(graph)
     nt.show('nx.html')
 
-def get_elapsed_times(string):
-    folder = "results/"
-    # build a list of file names contained in the folder
-    files = [f for f in listdir(folder) if isfile(join(folder, f))]
+def get_elapsed_times(name, data):
+    res = re.findall("\d+\.\d+", data)
+    res.insert(0, name)
+    return res
+
+def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
+    # open csv file
     writer = csv.writer(open("data.csv", 'w'))
+    # write label row
+    writer.writerow(['name', 'time', 'ticks', 'nodes', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust', 'radius', 'diameter'])
+    resFolder = "mip-results/"
+    graphFolder = "graph-instances/"
+    # build a list of file names contained in the folder
+    files = [f for f in listdir(resFolder) if isfile(join(resFolder, f))]
     # for each adjacency list
     for name in files:
-        fileHandle = open (folder + name,"r" )
-        lineList = fileHandle.readlines()
-        fileHandle.close()
-        data = re.findall("\d+\.\d+", lineList[-1])
-        data.insert(0, name.split(".")[0])
-        writer.writerow(data)
-
-
-def save_results(classes = []):
-     
+        if name[0:3] in classes:
+            id = name.split(".")[0]
+            fileHandle = open (resFolder + id + ".txt","r" )
+            lineList = fileHandle.readlines()
+            fileHandle.close()
+            graph = nx.read_adjlist(graphFolder + id + ".adjlist")
+            row = get_elapsed_times(id, lineList[-1])
+            row.append(analyze_graph(graph))
+            writer.writerow(row)
 
 if __name__ == "__main__":
 #    print("which graph: ")
 #    name = input()
 #    graph = nx.read_adjlist("graph-instances/" + name+".adjlist")
 #    draw(graph)
-     get_elapsed_times()
+     save_results()

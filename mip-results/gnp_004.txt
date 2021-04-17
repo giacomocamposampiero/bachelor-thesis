@@ -39,7 +39,7 @@ Root relaxation solution time = 0.07 sec. (30.41 ticks)
       0     0       86.0181   100       91.0000       Cuts: 5     1516    5.17%
       0     0       86.0402    99       91.0000       Cuts: 5     1558    5.17%
       0     2       86.0402    99       91.0000       86.9835     1558    4.41%
-Elapsed time = 1.46 sec. (442.56 ticks, tree = 0.02 MB, solutions = 5)
+Elapsed time = 1.45 sec. (442.56 ticks, tree = 0.02 MB, solutions = 5)
 
 Clique cuts applied:  60
 Zero-half cuts applied:  3
