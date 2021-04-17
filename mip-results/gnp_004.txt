@@ -45,7 +45,7 @@ Clique cuts applied:  60
 Zero-half cuts applied:  3
 
 Root node processing (before b&c):
-  Real time             =    1.45 sec. (441.89 ticks)
+  Real time             =    1.46 sec. (441.89 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.40 sec. (199.50 ticks)
   Sync time (average)   =    0.08 sec.
