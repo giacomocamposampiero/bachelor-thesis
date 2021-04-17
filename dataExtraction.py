@@ -54,7 +54,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             fileHandle.close()
             graph = nx.read_adjlist(graphFolder + id + ".adjlist")
             row = get_elapsed_times(id, lineList[-2])
-            row.append(lineList[-1])
+            row.append(re.sub("[^0-9^.]", '', lineList[-1]))
             row.extend(analyze_graph(graph))
             writer.writerow(row)
 
