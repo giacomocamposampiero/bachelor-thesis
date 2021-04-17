@@ -39,7 +39,7 @@ Root relaxation solution time = 0.39 sec. (142.27 ticks)
       0     0      176.7954   199      189.0000    Cliques: 3     1475    6.46%
       0     0      176.8170   199      189.0000    Cliques: 3     1547    6.45%
       0     2      176.8170   199      189.0000      177.9858     1547    5.83%
-Elapsed time = 14.06 sec. (6890.03 ticks, tree = 0.02 MB, solutions = 4)
+Elapsed time = 14.08 sec. (6890.03 ticks, tree = 0.02 MB, solutions = 4)
      20     7      187.3158    32      189.0000      177.9858     3739    5.83%
     144    37      187.4457    43      189.0000      177.9858    11229    5.83%
     263    99      187.8556    42      189.0000      177.9858    18665    5.83%
@@ -50,7 +50,7 @@ Elapsed time = 14.06 sec. (6890.03 ticks, tree = 0.02 MB, solutions = 4)
     819   263      185.0856    85      189.0000      177.9858    65088    5.83%
     921   371      187.2686    45      189.0000      177.9858    75605    5.83%
    1294   683      187.1309    58      189.0000      177.9858   108565    5.83%
-Elapsed time = 20.12 sec. (10017.84 ticks, tree = 0.37 MB, solutions = 4)
+Elapsed time = 20.15 sec. (10017.84 ticks, tree = 0.37 MB, solutions = 4)
    1648   973      185.7184    69      189.0000      177.9858   142216    5.83%
    2111  1288      187.1616    56      189.0000      179.5369   174562    5.01%
    2450  1639      177.1860   199      189.0000      180.9693   212551    4.25%
@@ -61,7 +61,7 @@ Elapsed time = 20.12 sec. (10017.84 ticks, tree = 0.37 MB, solutions = 4)
    4101  1209      186.8517    55      189.0000      180.9693   332366    4.25%
    4610  1626      186.3071    63      189.0000      180.9693   371121    4.25%
    5143  1935      187.3829    54      189.0000      182.1891   403823    3.60%
-Elapsed time = 47.75 sec. (23605.08 ticks, tree = 4.01 MB, solutions = 4)
+Elapsed time = 47.79 sec. (23605.08 ticks, tree = 4.01 MB, solutions = 4)
    5910  2336        cutoff            189.0000      182.8909   446021    3.23%
    6507  2565        cutoff            189.0000      183.3287   484660    3.00%
    7139  2824      187.9300    46      189.0000      183.6038   532185    2.86%
@@ -75,11 +75,11 @@ Clique cuts applied:  149
 Gomory fractional cuts applied:  5
 
 Root node processing (before b&c):
-  Real time             =   14.05 sec. (6886.26 ticks)
+  Real time             =   14.06 sec. (6886.26 ticks)
 Parallel b&c, 4 threads:
-  Real time             =   48.84 sec. (24780.36 ticks)
-  Sync time (average)   =    1.63 sec.
+  Real time             =   48.87 sec. (24780.36 ticks)
+  Sync time (average)   =    1.67 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =   62.89 sec. (31666.61 ticks)
+Total (root+branch&cut) =   62.94 sec. (31666.61 ticks)
 189.0

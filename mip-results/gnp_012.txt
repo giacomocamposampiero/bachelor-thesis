@@ -10,7 +10,7 @@ Probing time = 0.00 sec. (0.42 ticks)
 Tried aggregator 1 time.
 Reduced MIP has 2530 rows, 200 columns, and 18287 nonzeros.
 Reduced MIP has 200 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 0.08 sec. (25.90 ticks)
+Presolve time = 0.07 sec. (25.90 ticks)
 Probing time = 0.00 sec. (0.55 ticks)
 Clique table members: 2530.
 MIP emphasis: balance optimality and feasibility.
@@ -39,7 +39,7 @@ Root relaxation solution time = 0.39 sec. (143.54 ticks)
       0     0      176.6994   199      190.0000    Cliques: 4     1871    7.00%
       0     0      176.7096   200      190.0000    Cliques: 1     1923    6.99%
       0     2      176.7096   200      190.0000      176.7096     1923    6.99%
-Elapsed time = 12.30 sec. (6106.98 ticks, tree = 0.02 MB, solutions = 4)
+Elapsed time = 12.29 sec. (6106.98 ticks, tree = 0.02 MB, solutions = 4)
      16     9      187.4726    35      190.0000      176.7099     3720    6.99%
 *    52    12      integral     0      189.0000      176.7099     5839    6.50%
     119     9        cutoff            189.0000      176.7099     9323    6.50%
@@ -51,7 +51,7 @@ Elapsed time = 12.30 sec. (6106.98 ticks, tree = 0.02 MB, solutions = 4)
     598   263      186.1868    68      189.0000      176.9291    45812    6.39%
     694   296      187.5505    53      189.0000      176.9291    51422    6.39%
    1107   635      187.9108    41      189.0000      177.8506    86136    5.90%
-Elapsed time = 18.91 sec. (9233.77 ticks, tree = 3.66 MB, solutions = 5)
+Elapsed time = 18.88 sec. (9233.77 ticks, tree = 3.66 MB, solutions = 5)
    1640  1091      186.2223    65      189.0000      178.8684   128664    5.36%
    2205  1566      186.4874    62      189.0000      180.3188   170693    4.59%
    2463  1800      176.9859   199      189.0000      180.9482   196831    4.26%
@@ -62,7 +62,7 @@ Elapsed time = 18.91 sec. (9233.77 ticks, tree = 3.66 MB, solutions = 5)
    4357  1367      186.1630    61      189.0000      180.9482   293431    4.26%
    4825  1744      187.5080    50      189.0000      180.9482   318216    4.26%
    5491  2105      186.1408    55      189.0000      181.7755   341644    3.82%
-Elapsed time = 45.07 sec. (21782.35 ticks, tree = 31.94 MB, solutions = 5)
+Elapsed time = 45.02 sec. (21782.35 ticks, tree = 31.94 MB, solutions = 5)
    6178  2512      183.8714    85      189.0000      182.4785   369765    3.45%
    6867  2884      186.9962    41      189.0000      182.9470   400143    3.20%
    7552  3160        cutoff            189.0000      183.2636   425216    3.04%
@@ -73,17 +73,17 @@ Elapsed time = 45.07 sec. (21782.35 ticks, tree = 31.94 MB, solutions = 5)
   10262  2884        cutoff            189.0000      185.7589   565672    1.71%
   11108  2178        cutoff            189.0000      186.5660   592586    1.29%
   12458   921        cutoff            189.0000      187.3800   614940    0.86%
-Elapsed time = 66.45 sec. (31333.76 ticks, tree = 12.11 MB, solutions = 5)
+Elapsed time = 66.28 sec. (31333.76 ticks, tree = 12.11 MB, solutions = 5)
 
 Clique cuts applied:  197
 Gomory fractional cuts applied:  4
 
 Root node processing (before b&c):
-  Real time             =   12.30 sec. (6103.12 ticks)
+  Real time             =   12.27 sec. (6103.12 ticks)
 Parallel b&c, 4 threads:
-  Real time             =   55.43 sec. (25638.28 ticks)
+  Real time             =   55.27 sec. (25638.28 ticks)
   Sync time (average)   =    4.37 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =   67.73 sec. (31741.40 ticks)
+Total (root+branch&cut) =   67.55 sec. (31741.40 ticks)
 189.0
