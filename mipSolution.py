@@ -12,6 +12,8 @@ if __name__ == "__main__":
     files = [f for f in listdir(folder) if isfile(join(folder, f))]
     # for each adjacency list
     for name in files:
+        print("-----------------------")
+        print(name)
         id = name.split(".")[0]
         f = open(output_folder + id + ".txt", "w")
         cpx = cplex.Cplex(folder + name)
@@ -21,5 +23,5 @@ if __name__ == "__main__":
         cpx.solve()
         print(cpx.solution.get_quality_metrics())
         f.close()
-        if name=='gnp_005.lp':
+        if name=='gnp_009.lp':
             break
