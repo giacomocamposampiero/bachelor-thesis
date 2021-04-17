@@ -17,7 +17,7 @@ def analyze(graph, plot = False):
     radius = nx.diameter(graph)
 
 def draw(graph):
-    nt = Network(height='100%', width='100%', bgcolor='#222222', font_color='white')
+    nt = Network(notebook=True)
     nt.barnes_hut()
     nt.from_nx(graph)
     nt.show('nx.html')

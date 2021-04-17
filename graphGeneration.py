@@ -12,27 +12,29 @@ def graph_generator(generator, ns, seeds, ps = None, ks = None, ds = None, ms = 
     graphs = list()
     # for each graph dimension
     for n in ns:
-        # for each random seed
-        for seed in seeds:
-            if(ds is not None):
-                # regular graph
-                for d in ds:
+        if(ds is not None):
+            # regular graph
+            for d in ds:
+                for seed in seeds:
                     graphs.append(generator(d, n, seed))
                     typ = "rr"
-            elif(ms is not None):
-                # Barabási–Albert graph
-                for m in ms:
+        elif(ms is not None):
+            # Barabási–Albert graph
+            for m in ms:
+                for seed in seeds:
                     graphs.append(generator(n, m, seed))
                     typ = "ba"
-            else:
-                for p in ps:
-                    if(ks is not None):
-                        # Watts–Strogatz small-world graph
-                        for k in ks:
+        else:
+            for p in ps:
+                if(ks is not None):
+                    # Watts–Strogatz small-world graph
+                    for k in ks:
+                        for seed in seeds:
                             graphs.append(generator(n, k, p, seed))
                             typ = "ws"
-                    else:
-                        # Erdős-Rényi graph
+                else:
+                    # Erdős-Rényi graph
+                    for seed in seeds:
                         graphs.append(generator(n, p, seed))
                         typ = "gnp"
     for index in range(len(graphs)):
