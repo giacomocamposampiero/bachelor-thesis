@@ -59,7 +59,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             row = get_elapsed_times(id, lineList[-3])
             row.append(lineList[-2])
             row.append(lineList[-1])
-            row.append(True if lineList[-1] == 0 else False)
+            row.append(False if float(lineList[-1]) == 0.0 else True)
             row.extend(analyze_graph(graph))
             writer.writerow(row)
 
