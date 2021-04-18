@@ -15,10 +15,10 @@ if __name__ == "__main__":
         id = name.split(".")[0]
         f = open(output_folder + id + ".txt", "w")
         cpx = cplex.Cplex(folder + name)
-        cpx.parameters.tune.timelimit = 300
-        #cpx.parameters.tuning.timelimit.set(300.0)
         # write solving result in corresponding file
         cpx.set_results_stream(f)
+        cpx.parameters.timelimit.set(600)
         cpx.solve()
         f.write(str(cpx.solution.get_objective_value()))
+        f.write("\n"+str(cpx.solution.MIP.get_mip_relative_gap()))
         f.close()

@@ -1,11 +1,12 @@
 CPXPARAM_Read_DataCheck                          1
+CPXPARAM_TimeLimit                               600
 Found incumbent of value 199.000000 after 0.00 sec. (0.69 ticks)
 Tried aggregator 1 time.
 MIP Presolve eliminated 16041 rows and 1 columns.
 MIP Presolve modified 1244 coefficients.
 Reduced MIP has 1869 rows, 200 columns, and 37224 nonzeros.
 Reduced MIP has 200 binaries, 0 generals, 0 SOSs, and 0 indicators.
-Presolve time = 1.25 sec. (510.65 ticks)
+Presolve time = 1.24 sec. (510.65 ticks)
 Probing time = 0.01 sec. (1.34 ticks)
 Tried aggregator 1 time.
 Reduced MIP has 1869 rows, 200 columns, and 37224 nonzeros.
@@ -35,16 +36,17 @@ Root relaxation solution time = 0.16 sec. (56.24 ticks)
       0     0      193.3010   167      196.0000   Cliques: 55     3128    1.38%
       0     0      193.3293   168      196.0000   Cliques: 58     3282    0.70%
       0     0        cutoff            196.0000      196.0000     3408    0.00%
-Elapsed time = 5.54 sec. (2226.76 ticks, tree = 0.01 MB, solutions = 3)
+Elapsed time = 5.52 sec. (2226.76 ticks, tree = 0.01 MB, solutions = 3)
 
 Clique cuts applied:  183
 
 Root node processing (before b&c):
-  Real time             =    5.54 sec. (2226.77 ticks)
+  Real time             =    5.52 sec. (2226.77 ticks)
 Parallel b&c, 4 threads:
   Real time             =    0.00 sec. (0.00 ticks)
   Sync time (average)   =    0.00 sec.
   Wait time (average)   =    0.00 sec.
                           ------------
-Total (root+branch&cut) =    5.54 sec. (2226.77 ticks)
+Total (root+branch&cut) =    5.52 sec. (2226.77 ticks)
 196.0
+0.0

@@ -21,8 +21,11 @@ def analyze_graph(graph):
     clustering = nx.clustering(graph)
     info.append(mean(list(clustering.values())))
     info.append(std(list(clustering.values())))
-    info.append(nx.radius(graph))
-    info.append(nx.diameter(graph))
+    if(nx.is_connected(graph)):
+        rad = [nx.radius(graph), nx.diameter(graph)]
+    else:
+        rad = [-1, -1]
+    info.extend(rad)
     return info
 
 def draw(graph):
@@ -40,7 +43,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
     # open csv file
     writer = csv.writer(open("data.csv", 'w'))
     # write label row
-    writer.writerow(['name', 'time', 'ticks','sol_nodes', 'nodes', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust', 'radius', 'diameter'])
+    writer.writerow(['name', 'time', 'ticks','sol_nodes', 'gap', 'time_lim', 'nodes', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust', 'radius', 'diameter'])
     resFolder = "mip-results/"
     graphFolder = "graph-instances/"
     # build a list of file names contained in the folder
@@ -53,8 +56,10 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             lineList = fileHandle.readlines()
             fileHandle.close()
             graph = nx.read_adjlist(graphFolder + id + ".adjlist")
-            row = get_elapsed_times(id, lineList[-2])
-            row.append(re.sub("[^0-9^.]", '', lineList[-1]))
+            row = get_elapsed_times(id, lineList[-3])
+            row.append(lineList[-2])
+            row.append(lineList[-1])
+            row.append(True if lineList[-1] == 0 else False)
             row.extend(analyze_graph(graph))
             writer.writerow(row)
 
