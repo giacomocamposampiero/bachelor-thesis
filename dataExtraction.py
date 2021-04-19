@@ -52,6 +52,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
     graphFolder = "graph-instances/"
     # build a list of file names contained in the folder
     files = [f for f in listdir(resFolder) if isfile(join(resFolder, f))]
+    files.sort()
     # for each graph
     for name in files:
         if name[0:3] in classes:
