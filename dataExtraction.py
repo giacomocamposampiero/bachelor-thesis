@@ -41,15 +41,17 @@ def get_elapsed_times(name, data):
 
 def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
     # open csv file
-    writer = csv.writer(open("data.csv", 'w'))
+    writers = [csv.writer(open("data/"+classes[i]+".csv", 'w')) for i in range(len(classes))]
     # label row
     labels = ['name', 'time', 'ticks','sol_nodes', 'gap', 'time_lim', 'nodes', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust', 'radius', 'diameter']
+    # add labels to each file
+    for i in range(len(classes)):
+         writers[i].writerow(labels)
+    # useful folders path
     resFolder = "mip-results/"
     graphFolder = "graph-instances/"
     # build a list of file names contained in the folder
     files = [f for f in listdir(resFolder) if isfile(join(resFolder, f))]
-    # dictionary containing data for each type
-    data = dict((key, [labels]) for key in classes)
     # for each graph
     for name in files:
         if name[0:3] in classes:
@@ -63,12 +65,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             row.append(lineList[-1])
             row.append(False if float(lineList[-1]) == 0.0 else True)
             row.extend(analyze_graph(graph))
-            data[name[0:3]].append(row)
-    # write each class data in a dedicated file
-    for key in classes:
-        writer = csv.writer(open("data/"+key+".csv", "w"))
-        for row in data[key]:
-            writer.writerow(row)
+            writers[classes.index(name[0:3])].writerow(row)
 
 if __name__ == "__main__":
 #    print("which graph: ")
