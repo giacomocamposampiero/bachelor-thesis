@@ -2,46 +2,57 @@
 import networkx as nx
 # generation parameters
 import params as pr
+# import cartesian product method
+from itertools import product
 
-def save_graph(graph, type, id):
-    nx.write_adjlist(graph, "graph-instances/"+type+"_{0:03d}.adjlist".format(id))
+def save_graph(graph, g_type, id):
+    """ 
+    Save graph as an adjency list in the folder "graph-instance"
+    Name of the files are formatted as: TYPE "_" 3*DIGIT(id) ".adjlist"
+        
+    Parameters
+    ----------
+    graph : graph
+            networkx graph to be saved
+    type  : string
+            type of graph
+    id    : int
+            integer id associated to the graph
+    Returns
+    -------
+    None
+    """
+    nx.write_adjlist(graph, "graph-instances/"+g_type+"_{0:03d}.adjlist".format(id))
 
-def graph_generator(generator, ns, seeds, ps = None, ks = None, ds = None, ms = None):
+def graph_generator(generator, g_type, *par):
     """
+    Generate a graph using the corresponding generator function and a list of 
+    parameters of variable size and save it in the disk
+    
+    Parameters
+    ----------
+    generator : function
+                function of networkx lib to generate the graph
+    g_type    : string
+                type of graph
+    *par      : variable number of parameters
+                parameters for the generator
+    Returns
+    -------
+    None
     """
-    graphs = list()
-    # for each graph dimension
-    for n in ns:
-        if(ds is not None):
-            # regular graph
-            for d in ds:
-                for seed in seeds:
-                    graphs.append(generator(d, n, seed))
-                    typ = "rrg"
-        elif(ms is not None):
-            # Barabási–Albert graph
-            for m in ms:
-                for seed in seeds:
-                    graphs.append(generator(n, m, seed))
-                    typ = "bag"
-        else:
-            for p in ps:
-                if(ks is not None):
-                    # Watts–Strogatz small-world graph
-                    for k in ks:
-                        for seed in seeds:
-                            graphs.append(generator(n, k, p, seed))
-                            typ = "wsg"
-                else:
-                    # Erdős-Rényi graph
-                    for seed in seeds:
-                        graphs.append(generator(n, p, seed))
-                        typ = "gnp"
-    for index in range(len(graphs)):
-        save_graph(graphs[index], typ, index)
+    index = 0
+    # for each possible combination of parameters
+    for comb in product(*par):
+        # generate the graph
+        graph = generator(*comb)
+        # save the graph
+        save_graph(graph, g_type, index)
+        # increase the numeric index
+        index += 1
 
 if __name__ == "__main__":
-    graph_generator(generator = nx.gnp_random_graph, ns = pr.GNP_N, seeds = pr.SEEDS, ps = pr.GNP_P)
-    graph_generator(generator = nx.watts_strogatz_graph, ns = pr.WS_N, seeds = pr.SEEDS, ps = pr.WS_P, ks = pr.WS_K)
-    graph_generator(generator = nx.random_regular_graph, ns = pr.RR_N, seeds = pr.SEEDS, ds = pr.RR_D)
-    graph_generator(generator = nx.barabasi_albert_graph, ns = pr.BA_N, seeds = pr.SEEDS, ms = pr.BA_M)
+    graph_generator(nx.gnp_random_graph, 'gnp', pr.GNP_N, pr.GNP_P, pr.SEEDS)
+    graph_generator(nx.watts_strogatz_graph, 'wsg', pr.WS_N, pr.WS_K, pr.WS_P, pr.SEEDS)
+    graph_generator(nx.random_regular_graph, 'rrg', pr.RR_D, pr.RR_N, pr.SEEDS)
+    graph_generator(nx.barabasi_albert_graph, 'bag', pr.BA_N, pr.BA_M, pr.SEEDS)
