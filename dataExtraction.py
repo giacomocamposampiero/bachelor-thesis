@@ -22,11 +22,6 @@ def analyze_graph(graph):
     clustering = nx.clustering(graph)
     info.append(mean(list(clustering.values())))
     info.append(std(list(clustering.values())))
-    if(nx.is_connected(graph)):
-        rad = [nx.radius(graph), nx.diameter(graph)]
-    else:
-        rad = [-1, -1]
-    info.extend(rad)
     return info
     
 def graph_parameters(classes):
@@ -51,7 +46,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
     writers = [csv.writer(open("data/"+classes[i]+".csv", 'w')) for i in range(len(classes))]
     # label row
     labels_st = ['name']
-    labels_rd = ['time', 'ticks','sol_nodes', 'gap', 'time_lim', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust', 'radius', 'diameter']
+    labels_rd = ['time', 'ticks','sol_nodes', 'gap', 'time_lim', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust']
     # get experiment parameters
     parameters = graph_parameters(classes)
     # write labels in each file
@@ -73,7 +68,7 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             graph = nx.read_adjlist(graphFolder + id + ".adjlist")
             row = [id]
             row.extend(list(parameters[classes.index(id[0:3])].pop(0)))
-            row.append(re.findall("\d+\.\d+", lineList[-3]))
+            row.extend(re.findall("\d+\.\d+", lineList[-3]))
             row.append(lineList[-2])
             row.append(lineList[-1])
             row.append(False if float(lineList[-1]) == 0.0 else True)
