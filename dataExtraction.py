@@ -16,6 +16,23 @@ import params as pa
 from itertools import product
 
 def analyze_graph(graph):
+    """
+    Compute information about the networkx graph passed as argument
+    
+    Params
+    ------
+    graph : graph
+            networkx graph which has to be analyzed
+    Returns
+    -------
+    l : list
+        list of metrics about the graph computed using networkx methods; the 
+        list contains (read the lines as [position] [metric]:
+            0 number_of_edges
+            1 number_of_connected_components
+            2 mean_clustering_index
+            3 std_deviation_clustering_index
+    """
     info = list()
     info.append(nx.number_of_edges(graph))
     info.append(nx.number_connected_components(graph))
@@ -25,6 +42,20 @@ def analyze_graph(graph):
     return info
     
 def graph_parameters(classes):
+    """
+    Compute a list containing the labels and the parameter values for each type
+    of graph that have been used to instantiate graphs
+    
+    Params
+    ------
+    classes : list
+              list of classes that must be included in the returned list
+    Returns
+    -------
+    l : list
+        list containing the labels and the param values used for each graph
+        class studied 
+    """
     params = [[],[],[],[]]
     for i in range(len(classes)):
         if classes[i] == 'gnp':
@@ -41,13 +72,23 @@ def graph_parameters(classes):
             params[i].insert(0, ('n', 'm', 'seed'))
     return params 
     
-def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
-    # open csv file
+def extract_results(classes = ["gnp", "bag", "rrg", "wsg"]):
+    """
+    Extract and save results for each of the specified classes; for each graph
+    class data are extracted from the results of the MIP solver and are stored
+    in a CSV file
+    
+    Params
+    ------
+    classes : list
+              list containing the names of the classes that must be analyzed
+    """
+    # open a csv output file for each class that we want to analyze
     writers = [csv.writer(open("data/"+classes[i]+".csv", 'w')) for i in range(len(classes))]
-    # label row
+    # standard labes
     labels_st = ['name']
     labels_rd = ['time', 'ticks','sol_nodes', 'gap', 'time_lim', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust']
-    # get experiment parameters
+    # get experiment parameters for the classes specified
     parameters = graph_parameters(classes)
     # write labels in each file
     for i in range(len(classes)):
@@ -76,4 +117,4 @@ def save_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             writers[classes.index(name[0:3])].writerow(row)
 
 if __name__ == "__main__":
-    save_results()
+    extract_results()

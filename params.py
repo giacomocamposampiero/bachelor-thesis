@@ -25,3 +25,8 @@ RR_D = [2, 5, 10]
 # BA_M : number of edges to attach from a new node to existing nodes
 BA_N = [100, 200, 500]
 BA_M = [2, 5, 10]
+
+# CPLEX PARAMS
+
+# time limit
+T_LIMIT = 600
