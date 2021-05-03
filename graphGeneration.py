@@ -22,7 +22,7 @@ def save_graph(graph, g_type, id):
     -------
     None
     """
-    nx.write_adjlist(graph, "graph-instances/"+g_type+"_{0:03d}.adjlist".format(id))
+    nx.write_adjlist(graph, "graph-instances/"+g_type+"_{0:04d}.adjlist".format(id))
 
 def graph_generator(generator, g_type, *par):
     """
