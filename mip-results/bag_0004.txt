@@ -1,0 +1,19 @@
+CPXPARAM_Read_DataCheck                          1
+CPXPARAM_TimeLimit                               1800
+Found incumbent of value 61.000000 after 0.00 sec. (0.01 ticks)
+Tried aggregator 5 times.
+MIP Presolve eliminated 158 rows and 57 columns.
+Aggregator did 39 substitutions.
+All rows and columns eliminated.
+Presolve time = 0.00 sec. (0.49 ticks)
+
+Root node processing (before b&c):
+  Real time             =    0.00 sec. (0.51 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.00 sec. (0.51 ticks)
+43.0
+0.0

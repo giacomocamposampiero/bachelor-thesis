@@ -1,0 +1,69 @@
+CPXPARAM_Read_DataCheck                          1
+CPXPARAM_TimeLimit                               1800
+Found incumbent of value 148.000000 after 0.00 sec. (0.22 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 4215 rows and 1 columns.
+MIP Presolve modified 1415 coefficients.
+Reduced MIP has 1415 rows, 150 columns, and 9802 nonzeros.
+Reduced MIP has 150 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.10 sec. (29.29 ticks)
+Probing time = 0.00 sec. (0.83 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 1415 rows, 150 columns, and 9802 nonzeros.
+Reduced MIP has 150 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (12.37 ticks)
+Probing time = 0.01 sec. (0.83 ticks)
+Clique table members: 1415.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.27 sec. (116.70 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          148.0000        0.0000           100.00%
+*     0+    0                          144.0000        0.0000           100.00%
+*     0+    0                          142.0000        0.0000           100.00%
+*     0+    0                          141.0000        0.0000           100.00%
+      0     0      130.1952   141      141.0000      130.1952     1884    7.66%
+*     0+    0                          140.0000      130.1952             7.00%
+      0     0      130.8934   146      140.0000      Cuts: 46     2143    6.50%
+      0     0      131.1429   147      140.0000      Cuts: 19     2330    6.33%
+      0     0      131.2434   149      140.0000    Cliques: 6     2429    6.25%
+      0     0      131.2912   150      140.0000    Cliques: 3     2499    6.22%
+      0     0      131.3537   148      140.0000    Cliques: 6     2576    6.18%
+      0     0      131.4301   150      140.0000   Cliques: 10     2665    6.12%
+      0     0      131.4712   150      140.0000    Cliques: 3     2712    6.09%
+      0     0      131.4854   149      140.0000    Cliques: 2     2758    6.08%
+      0     0      131.5424   150      140.0000    Cliques: 6     2832    6.04%
+      0     0      131.5872   149      140.0000    Cliques: 5     2902    6.01%
+      0     0      131.6298   149      140.0000    Cliques: 4     2987    5.98%
+      0     0      131.6522   147      140.0000    Cliques: 2     3019    5.96%
+      0     0      131.6896   148      140.0000    Cliques: 7     3073    5.94%
+      0     0      131.7013   148      140.0000    Cliques: 2     3106    5.93%
+      0     0      131.7422   148      140.0000    Cliques: 7     3167    5.90%
+      0     0      131.7464   148      140.0000    Cliques: 2     3180    5.90%
+      0     2      131.7464   148      140.0000      131.7464     3180    5.90%
+Elapsed time = 4.48 sec. (1957.97 ticks, tree = 0.02 MB, solutions = 5)
+    178    40      132.3062   143      140.0000      132.0117    10125    5.71%
+    334   146        cutoff            140.0000      132.0117    19558    5.71%
+    527   235      135.5710   102      140.0000      132.0117    26327    5.71%
+    715   402      137.4147    59      140.0000      133.8553    38862    4.39%
+    927   503      137.5509    41      140.0000      135.0965    48594    3.50%
+   1137   561        cutoff            140.0000      136.1199    62888    2.77%
+   1333   530      138.9434    33      140.0000      136.6295    74775    2.41%
+   1609   340        cutoff            140.0000      137.9005    85444    1.50%
+
+Clique cuts applied:  120
+
+Root node processing (before b&c):
+  Real time             =    4.47 sec. (1955.89 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    4.73 sec. (2059.11 ticks)
+  Sync time (average)   =    0.48 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    9.20 sec. (4015.01 ticks)
+140.0
+0.0
