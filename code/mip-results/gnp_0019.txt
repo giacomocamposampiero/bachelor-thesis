@@ -1,0 +1,51 @@
+CPXPARAM_Read_DataCheck                          1
+CPXPARAM_TimeLimit                               1800
+Found incumbent of value 99.000000 after 0.00 sec. (0.14 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 2759 rows and 1 columns.
+MIP Presolve modified 722 coefficients.
+Reduced MIP has 722 rows, 100 columns, and 7415 nonzeros.
+Reduced MIP has 100 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.08 sec. (27.15 ticks)
+Probing time = 0.00 sec. (0.65 ticks)
+Tried aggregator 1 time.
+Reduced MIP has 722 rows, 100 columns, and 7415 nonzeros.
+Reduced MIP has 100 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.03 sec. (10.80 ticks)
+Probing time = 0.00 sec. (0.65 ticks)
+Clique table members: 722.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.04 sec. (19.65 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           99.0000        0.0000           100.00%
+*     0+    0                           95.0000        0.0000           100.00%
+      0     0       89.5168    74       95.0000       89.5168      558    5.77%
+      0     0       90.6569    89       95.0000      Cuts: 93      758    4.57%
+      0     0       90.8322    95       95.0000      Cuts: 20      846    4.39%
+      0     0       90.9062    95       95.0000      Cuts: 18      924    4.31%
+*     0+    0                           94.0000       90.9062             3.29%
+      0     0       90.9553    94       94.0000      Cuts: 15      987    3.24%
+      0     0       91.0136    95       94.0000       Cuts: 8     1034    3.18%
+      0     0       91.0504    95       94.0000       Cuts: 8     1092    3.14%
+      0     0       91.0677    96       94.0000      Cuts: 11     1134    3.12%
+      0     0        cutoff             94.0000       94.0000     1199    0.00%
+Elapsed time = 0.91 sec. (310.54 ticks, tree = 0.01 MB, solutions = 3)
+
+Clique cuts applied:  62
+Zero-half cuts applied:  3
+
+Root node processing (before b&c):
+  Real time             =    0.91 sec. (310.54 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.91 sec. (310.54 ticks)
+94.0
+0.0

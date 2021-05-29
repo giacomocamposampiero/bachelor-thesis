@@ -1,0 +1,96 @@
+\documentclass[a4paper,12pt]{book}
+
+% import pacchetti
+\input{model/packages}
+
+% definizione layout documento
+\input{model/layout}
+
+% Comandi ridefiniti
+\input{model/new_commands}
+
+% aggiunta bibliografia
+\addbibresource{bib/bib-latex.bib}
+
+\begin{document}
+
+% FRONTESPIZIO 
+\begin{titlepage}
+
+	\begin{center}
+	
+	\includegraphics[scale=0.35]{source-images/unipd-bn.eps} \\ % \hfill \includegraphics[scale=0.2]{source-images/logo_dei.pdf}\\
+	\vspace{0.4cm}
+	\textsc{\LARGE Università degli Studi di Padova}\\
+	\vspace{0.25cm}
+	\textsc{\normalsize Dipartimento di Ingegneria dell'Informazione}\\
+	\vspace{0.25cm}
+	\textsc{\normalsize Corso di Laurea Triennale in Ingegneria Informatica}
+	
+	\vfill
+	% Titolo
+	\textsc{\LARGE Esperimenti di programmazione lineare intera per problemi di vertex cover}\\
+
+	% Relatore e laureando	
+	\vfill
+	\vspace*{4cm}
+	\textit{\large Relatore} \hfill \textit{\large Laureando}\\
+	\large Prof. Domenico Salvagnin \hfill Giacomo Camposampiero\\
+	
+	\vfill
+	% Data, AA
+	{\large Anno Accademico 2020/2021}\\
+	\textit{\large Padova, 19 luglio 2021}
+	\end{center}
+\end{titlepage}
+
+% DE-COMMENTARE PER VISUALIZZARE MARGINI E STRUTTURA PAGINA 
+%\makeatletter
+%\renewcommand*{\lay@value}[2]{%
+%  \strip@pt\dimexpr0.351459\dimexpr\csname#2\endcsname\relax\relax mm%
+%}
+%\makeatother
+%\layout
+
+\thispagestyle{empty} %pagina bianca dopo il titolo
+\cleardoublepage
+
+\pagenumbering{gobble} 
+\thispagestyle{empty}
+
+\clearpage{\pagestyle{plain}\cleardoublepage}
+\input{acknowledgments.tex}
+
+\clearpage{\pagestyle{plain}\cleardoublepage}
+\tableofcontents %Indice
+
+\clearpage{\pagestyle{plain}\cleardoublepage} %Numerazione araba per i capitoli
+\pagenumbering{arabic}
+
+\clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
+\chapter{Introduzione} % nome capitolo
+\label{chapter:primo} % label capitolo
+\input{introduzione.tex} % importa il capitolo dal corrispondente file
+
+\clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
+\chapter{Presentazione delle sperimentazioni} % nome capitolo
+\label{chapter:secondo} % label capitolo
+\input{descrizione.tex} % importa il capitolo dal corrispondente file
+
+\clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
+\chapter{Risultati sperimentali} % nome capitolo
+\label{chapter:terzo} % label capitolo
+\input{risultati.tex} % importa il capitolo dal corrispondente file
+
+\clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
+\chapter{Conclusioni} % nome capitolo
+\label{chapter:quarto} % label capitolo
+\input{conclusioni.tex} % importa il capitolo dal corrispondente file
+
+\clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
+\chapter*{Bibliografia} % nome capitolo
+\addcontentsline{toc}{chapter}{Bibliografia}
+\label{chapter:biblio} % label capitolo
+\printbibliography[heading=none]
+
+\end{document}
