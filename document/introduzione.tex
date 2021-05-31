@@ -1,77 +1,59 @@
-\section{Prova di sottosezione}
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
+La ricerca operativa, dall'inglese \textit{operational research}, è una disciplina scientifica relativamente 
+giovane, nata con lo scopo di fornire strumenti matematici di supporto ad attività decisionali in cui occorre gestire e coordinare 
+attività e risorse limitate. La ricerca operativa permette infatti di trovare, mediante la formalizzazione 
+matematica di un problema, una soluzione ottima o ammissibile (quando possibile) al problema stesso. 
+Costituisce di fatto un approccio scientifico alla risoluzione di problemi 
+complessi, che ha trovato grande applicazione in moltissimi ambiti, non ultimo quello industriale. 
 
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
+Tra le diverse branche in cui si divide la ricerca operativa vi è anche l'ottimizzazione. 
+Quest'ultima si occupa principalmente di problemi che comportano la minimizzazione o la massimizzazione di una funzione, detta funzione
+obbiettivo, sottoposta a un dato insieme di vincoli. 
+Un problema di ottimizzazione può essere formulato come 
+\begin{equation}
+	\label{eq:opt}
+	\begin{cases}
+      \text{min(\textit{or} max)}f(x)\\
+      S	\\
+      x \in D
+    \end{cases}
+\end{equation}
+dove $f(x)$ è una funzione a valori reali nelle variabili $x$, $D$ è il dominio di x e $S$ un insieme finito di vincoli. In generale,  
+$x$ è una tupla ($x_1,...,x_n$) e $D$ è un prodotto cartesiano $D_1 \times ... \times D_n$, e vale $x_j \, \in \, D_j$. 
 
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
+Un problema nella forma (\ref{eq:opt}) risulta essere intrattabile, ovvero non esistono algoritmi efficienti (o non esiste proprio
+alcun algoritmo) per la sua risoluzione. Si rende quindi necessario considerare dei casi particolari di questa formulazione, i quali 
+possiedono determinate proprietà che possono essere sfruttate nella definizione di algoritmi ad-hoc.
+\section{Programmazione lineare intera}
+Uno dei casi particolari della formulazione generale (\ref{eq:opt}) a cui si è precedentemente fatto riferimento viene trattato dalla 
+programmazione lineare intera.
+Un problema di programmazione lineare intera consiste nella minimizzazione (o massimizzazione) di una funzione lineare soggetta ad un 
+numero finito di vincoli lineari, con in aggiunta il vincolo che alcune delle variabili del problema debbano assumere valori interi. 
+In generale, il problema può quindi essere riformulato come
+\begin{equation}
+	\label{eq:linprog}
+	\begin{cases}
+      \text{min} \, cx\\
+      a_i x \sim b_i \qquad i=1,...,m \\
+      l_j \leq x_j \leq u_j \qquad j=1,...,n =N \\
+      x_j \in \mathbb{Z}  \qquad \forall j \in J \subseteq N = {1,...,n}
+    \end{cases}
+\end{equation}
+Se $J=N$ si parla di programmazione lineare intera pura, altrimenti di programmazione lineare intera mista (o MIP, dall'inglese 
+\textit{Mixed Integer Programming}).
 
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
+La programmazione lineare intera restringe quindi notevolmente il tipo di vincoli a disposizione nel
+processo di formalizzazione matematica del problema, determinando una maggior difficoltà in fase di modellazione del problema.
+Tuttavia, questo non comporta eccessive restrizioni, almeno per la MIP, sui tipi di problemi che possono essere formulati secondo
+questo paradigma. Alcuni esempi di problemi risolvibili mediante MIP sono \textit{knapsack}, problemi di \textit{scheduling}, 
+\textit{facility location} e, naturalmente, \textit{vertex covering} (di cui si discuterà più approfonditamente di seguito
+nella Sezione \textbf{TODO}).
 
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
+Allo stesso tempo, l'introduzione dei vincoli di linearità ed interezza comporta notevoli vantaggi nella definizione ed
+implementazione di algoritmi risolutivi, di cui sono in seguito riportati alcuni esempi. 
 
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
+\subsection{Algoritmo Branch and Bound}
+L'algoritmo branch-and-bound (B\&B) è una tecnica di ottimizzazione generica basata sull'enumerazione dell'insieme delle soluzioni
+ammissibili di un problema di ottimizzazione combinatoria, introdotta nel 1960 da A. H. Land e A. G. Doig \cite{10.2307/1910129}. 
+Il concetto alla base
 
-\subsection{Prova sottosezione 21}
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
-
-\noindent
-La struttura utilizzata in questo template non è obbligatoria, però ritengo che sia molto comoda per evitare di scrivere file troppo lunghi e di avere un controllo migliore sulla struttura. Questa prevede di scrivere l'introduzione al capitolo in un file salvato nella cartella principale e di sviluppare le sezioni all'interno di una cartella. Esempio di richiamo ad un riferimento \cite{Latex-Lamport}.\\
+\subsection{Algoritmo Branch and Cut}

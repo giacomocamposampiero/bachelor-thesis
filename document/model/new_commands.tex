@@ -45,9 +45,6 @@
 %\newcommand{\unit}[2]($\frac{\text{#1}}{\text{#2}}$)                % unit\`{a} di misura
 \newcommand{\textttvar}[1]{{\ttvar #1}}
 
-\definecolor{gray}{gray}{0.9}
-\newcommand{\listato}[1]{\lstset{language=#1, numbers=left, numberstyle=\tiny, stepnumber=2, numbersep=5pt, numberblanklines=false, xleftmargin=5pt, captionpos=b, stringstyle=\ttfamily, columns=flexible, showstringspaces=false, tabsize=2, frame=single, framerule=0pt, backgroundcolor=\color{gray}, basicstyle=\small}}
-
 %****************************
 %* ridefinizioni di comandi *
 %****************************
@@ -65,7 +62,3 @@
 \makeatletter
 \def\BState{\State\hskip-\ALG@thistlm}
 \makeatother
-
-%Definizione input e output pseudocodice
-\renewcommand{\algorithmicrequire}{\textbf{Input:}}
-\renewcommand{\algorithmicensure}{\textbf{Output:}}
