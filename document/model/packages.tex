@@ -1,0 +1,56 @@
+%%% pacchetti utilizzati nel testo
+
+% bibliografia
+\usepackage[backend=biber]{biblatex}
+\appto{\bibsetup}{\sloppy}
+
+% formattazione url
+\usepackage{url}
+
+% spazi tra paragrafi
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
+% formule matematiche
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+% codifica
+\usepackage[utf8]{inputenc}
+
+% lingua
+\usepackage[italian]{babel}
+
+% verifica struttura documento
+\usepackage{layout}
+
+% definizione layout di pagina
+\usepackage{fancyhdr}
+\usepackage[left=3cm, right=3cm, bottom=3cm, heightrounded]{geometry}
+
+%Spazia linee all'interno del documento
+\usepackage{setspace}
+
+%Listati di codice
+\usepackage{verbatim}
+\usepackage{listings}
+
+%Didascalie immagini
+\usepackage[hang,small,sf,font=scriptsize, labelfont=bf]{caption}
+\usepackage{subcaption}
+
+%Inclusione immagini
+\usepackage{graphicx}
+
+%Impostazioni note a piè pagina
+\usepackage[stable]{footmisc}
+
+%Citazioni e riferimenti a label
+\usepackage[english]{varioref}
+
+%Citazione frasi
+\usepackage{csquotes}
+
+%Crea link ipertestuali
+\usepackage[hidelinks]{hyperref}
