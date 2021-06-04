@@ -1,7 +1,7 @@
 ### experiment params
 
 # SEEDS : seeds for random generation, used in every graph
-SEEDS = [1,2,3,4,5]
+SEEDS = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 
 # GNP graph generation
 # GNP_N : number of nodes 

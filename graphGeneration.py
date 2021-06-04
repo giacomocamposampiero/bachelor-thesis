@@ -22,7 +22,7 @@ def save_graph(graph, g_type, id):
     -------
     None
     """
-    nx.write_adjlist(graph, "graph-instances/"+g_type+"_{0:04d}.adjlist".format(id))
+    nx.write_adjlist(graph, "graph-instances/"+g_type+"_{0:05d}.adjlist".format(id))
 
 def graph_generator(generator, g_type, *par):
     """
@@ -52,7 +52,7 @@ def graph_generator(generator, g_type, *par):
         index += 1
 
 if __name__ == "__main__":
-    graph_generator(nx.gnp_random_graph, 'gnp', pr.GNP_N, pr.GNP_P, pr.SEEDS)
-    graph_generator(nx.watts_strogatz_graph, 'wsg', pr.WS_N, pr.WS_K, pr.WS_P, pr.SEEDS)
+    #graph_generator(nx.gnp_random_graph, 'gnp', pr.GNP_N, pr.GNP_P, pr.SEEDS)
+    #graph_generator(nx.watts_strogatz_graph, 'wsg', pr.WS_N, pr.WS_K, pr.WS_P, pr.SEEDS)
     graph_generator(nx.random_regular_graph, 'rrg', pr.RR_D, pr.RR_N, pr.SEEDS)
-    graph_generator(nx.barabasi_albert_graph, 'bag', pr.BA_N, pr.BA_M, pr.SEEDS)
+    #graph_generator(nx.barabasi_albert_graph, 'bag', pr.BA_N, pr.BA_M, pr.SEEDS)

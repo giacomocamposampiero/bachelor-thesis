@@ -117,4 +117,4 @@ def extract_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             writers[classes.index(name[0:3])].writerow(row)
 
 if __name__ == "__main__":
-    extract_results()
+    extract_results(classes = ['rrg'])
