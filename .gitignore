@@ -1,5 +1,5 @@
-code/.ipynb_checkpoints/
-code/__pycache__/
+.ipynb_checkpoints/
+__pycache__/
 document/*.aux
 document/*.log
 document/*.dvi
