@@ -8,7 +8,7 @@ from itertools import product
 def save_graph(graph, g_type, id):
     """ 
     Save graph as an adjency list in the folder "graph-instance"
-    Name of the files are formatted as: TYPE "_" 3*DIGIT(id) ".adjlist"
+    Name of the files are formatted as: TYPE "_" 4*DIGIT(id) ".adjlist"
         
     Parameters
     ----------
