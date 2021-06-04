@@ -1,0 +1,44 @@
+CPXPARAM_Read_DataCheck                          1
+CPXPARAM_TimeLimit                               1800
+Found incumbent of value 67.000000 after 0.00 sec. (0.01 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+Reduced MIP has 100 rows, 100 columns, and 200 nonzeros.
+Reduced MIP has 100 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.12 ticks)
+Probing time = 0.00 sec. (0.05 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 7 rows and 7 columns.
+Reduced MIP has 93 rows, 93 columns, and 186 nonzeros.
+Reduced MIP has 93 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.21 ticks)
+Probing time = 0.00 sec. (0.04 ticks)
+Clique table members: 93.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (0.48 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                           66.0000        4.0000            93.94%
+*     0+    0                           57.0000        4.0000            92.98%
+      0     0       50.5000    93       57.0000       50.5000      165   11.40%
+*     0+    0                           56.0000       50.5000             9.82%
+*     0     0      integral     0       51.0000   ZeroHalf: 1      166    0.00%
+      0     0        cutoff             51.0000       51.0000      166    0.00%
+Elapsed time = 0.02 sec. (6.06 ticks, tree = 0.01 MB, solutions = 5)
+
+Zero-half cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    0.02 sec. (6.07 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.02 sec. (6.07 ticks)
+51.0
+0.0

@@ -1,0 +1,44 @@
+CPXPARAM_Read_DataCheck                          1
+CPXPARAM_TimeLimit                               1800
+Found incumbent of value 165.000000 after 0.00 sec. (0.02 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 1 rows and 1 columns.
+Reduced MIP has 250 rows, 250 columns, and 500 nonzeros.
+Reduced MIP has 250 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.30 ticks)
+Probing time = 0.00 sec. (0.11 ticks)
+Tried aggregator 1 time.
+MIP Presolve eliminated 13 rows and 13 columns.
+Reduced MIP has 237 rows, 237 columns, and 474 nonzeros.
+Reduced MIP has 237 binaries, 0 generals, 0 SOSs, and 0 indicators.
+Presolve time = 0.00 sec. (0.53 ticks)
+Probing time = 0.00 sec. (0.11 ticks)
+Clique table members: 237.
+MIP emphasis: balance optimality and feasibility.
+MIP search method: dynamic search.
+Parallel mode: deterministic, using up to 4 threads.
+Root relaxation solution time = 0.00 sec. (1.53 ticks)
+
+        Nodes                                         Cuts/
+   Node  Left     Objective  IInf  Best Integer    Best Bound    ItCnt     Gap
+
+*     0+    0                          164.0000        7.0000            95.73%
+*     0+    0                          141.0000        7.0000            95.04%
+*     0+    0                          138.0000        7.0000            94.93%
+      0     0      125.5000   237      138.0000      125.5000      378    9.06%
+*     0     0      integral     0      126.0000      Fract: 1      379    0.00%
+      0     0        cutoff            126.0000      126.0000      379    0.00%
+Elapsed time = 0.07 sec. (18.27 ticks, tree = 0.01 MB, solutions = 5)
+
+Gomory fractional cuts applied:  1
+
+Root node processing (before b&c):
+  Real time             =    0.07 sec. (18.29 ticks)
+Parallel b&c, 4 threads:
+  Real time             =    0.00 sec. (0.00 ticks)
+  Sync time (average)   =    0.00 sec.
+  Wait time (average)   =    0.00 sec.
+                          ------------
+Total (root+branch&cut) =    0.07 sec. (18.29 ticks)
+126.0
+0.0
