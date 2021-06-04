@@ -7,6 +7,11 @@
 % formattazione url
 \usepackage{url}
 
+% spazi tra paragrafi
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+
 % formule matematiche
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -22,7 +27,6 @@
 
 % definizione layout di pagina
 \usepackage{fancyhdr}
-\usepackage{sectsty}
 \usepackage[left=3cm, right=3cm, bottom=3cm, heightrounded]{geometry}
 
 %Spazia linee all'interno del documento
@@ -45,8 +49,8 @@
 %Citazioni e riferimenti a label
 \usepackage[english]{varioref}
 
-%Crea link ipertestuali
-\usepackage[hidelinks]{hyperref}
-
 %Citazione frasi
 \usepackage{csquotes}
+
+%Crea link ipertestuali
+\usepackage[hidelinks]{hyperref}
