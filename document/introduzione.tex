@@ -26,8 +26,8 @@ possiedono determinate proprietà che possono essere sfruttate nella definizione
 \newpage
 
 Nelle successive sezioni di questa introduzione verranno brevemente esposti alcuni concetti teorici rilevanti nel contesto degli 
-esperimenti svolti. La trattazione proseguirà successivamente con l'esposizione dell'impostazione utilizzata nello svolgimento degli
-esperimenti, dei risultati ottenuti e di un conciso commento su questi ultimi.
+esperimenti svolti. La trattazione proseguirà poi con l'esposizione dell'impostazione utilizzata nello svolgimento degli
+esperimenti, dei risultati ottenuti e di un conciso commento riguardo questi ultimi. Tutto il codice sviluppato in relazione a questo elaborato è liberamente consultabile online \cite{repository}.
 
 \section{Programmazione lineare intera}
 Uno dei casi particolari della formulazione generale (\ref{eq:opt}) a cui si è precedentemente fatto riferimento viene trattato dalla 
@@ -141,8 +141,8 @@ Il problema di \textit{vertex cover} (anche detto di \textsl{copertura dei verti
 che consiste nel trovare il minimo vertex cover di un grafo, ossia il più piccolo insieme di nodi del grafo tale che almeno uno dei due 
 vertici di ogni arco sia contenuto in questo insieme. Trovare il vertex cover minimo di un generico grafo è un problema 
 \textsl{NP-completo}, ovvero non esistono algoritmi in grado di trovarne una soluzione in un tempo polinomiale. In questo elaborato è
-stata considerata la formulazione indiretta, per cui gli archi non sono direzionati, e non pesata, per cui tutti gli archi hanno peso 
-uguale e pari ad $1$, del problema.
+stata considerata la formulazione indiretta e \textit{unweighted} del problema, in cui gli archi non sono direzionati
+hanno tutti peso uguale e pari ad $1$.
 
 Formalmente, il vertex cover $V'$ di un grafo $G=(V,E)$ può essere definito come un sotto-insieme di $V$ tale che
 $uv \in E \Rightarrow u \in V' \vee v \in V'$. Definita $\tau=\mid V' \mid$ la cardinalità del vertex cover, il vertex cover minimo può
