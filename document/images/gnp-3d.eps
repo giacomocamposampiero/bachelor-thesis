@@ -9,26 +9,26 @@
 %%BeginProlog
 /mpldict 11 dict def
 mpldict begin
-/d { bind def } bind def
-/m { moveto } d
-/l { lineto } d
-/r { rlineto } d
-/c { curveto } d
-/cl { closepath } d
-/ce { closepath eofill } d
+/_d { bind def } bind def
+/m { moveto } _d
+/l { lineto } _d
+/r { rlineto } _d
+/c { curveto } _d
+/cl { closepath } _d
+/ce { closepath eofill } _d
 /box {
       m
       1 index 0 r
       0 exch r
       neg 0 r
       cl
-    } d
+    } _d
 /clipbox {
       box
       clip
       newpath
-    } d
-/sc { setcachedevice } d
+    } _d
+/sc { setcachedevice } _d
 %!PS-Adobe-3.0 Resource-Font
 %%Creator: Converted from TrueType to Type 3 by Matplotlib.
 10 dict begin
@@ -65,7 +65,7 @@ mpldict begin
 356 846 320 764 311 659 c
 967 660 l
 
-ce} d
+ce} _d
 /i{569 0 193 0 377 1556 sc
 193 1120 m
 377 1120 l
@@ -79,7 +79,7 @@ ce} d
 193 1323 l
 193 1556 l
 
-ce} d
+ce} _d
 /m{1995 0 186 0 1821 1147 sc
 1065 905 m
 1111 988 1166 1049 1230 1088 c
@@ -110,7 +110,7 @@ ce} d
 812 1147 881 1126 938 1085 c
 995 1044 1038 984 1065 905 c
 
-ce} d
+ce} _d
 /period{651 0 219 0 430 254 sc
 219 254 m
 430 254 l
@@ -118,7 +118,7 @@ ce} d
 219 0 l
 219 254 l
 
-ce} d
+ce} _d
 /n{1298 0 186 0 1124 1147 sc
 1124 676 m
 1124 0 l
@@ -138,7 +138,7 @@ ce} d
 862 1147 959 1107 1025 1027 c
 1091 948 1124 831 1124 676 c
 
-ce} d
+ce} _d
 /p{1300 0 186 -426 1188 1147 sc
 371 168 m
 371 -426 l
@@ -165,7 +165,7 @@ ce} d
 781 125 858 163 913 240 c
 969 317 997 424 997 559 c
 
-ce} d
+ce} _d
 /one{1303 0 225 0 1114 1493 sc
 254 170 m
 584 170 l
@@ -180,7 +180,7 @@ ce} d
 254 0 l
 254 170 l
 
-ce} d
+ce} _d
 /zero{1303 0 135 -29 1167 1520 sc
 651 1360 m
 547 1360 469 1309 416 1206 c
@@ -202,7 +202,7 @@ ce} d
 135 997 179 1189 267 1321 c
 356 1454 484 1520 651 1520 c
 
-ce} d
+ce} _d
 /two{1303 0 150 0 1098 1520 sc
 393 170 m
 1098 170 l
@@ -227,7 +227,7 @@ ce} d
 913 706 860 650 771 557 c
 682 465 556 336 393 170 c
 
-ce} d
+ce} _d
 /three{1303 0 156 -29 1139 1520 sc
 831 805 m
 928 784 1003 741 1057 676 c
@@ -260,7 +260,7 @@ ce} d
 1104 1050 1080 980 1033 923 c
 986 866 918 827 831 805 c
 
-ce} d
+ce} _d
 /four{1303 0 100 0 1188 1493 sc
 774 1317 m
 264 520 l
@@ -280,7 +280,7 @@ ce} d
 100 547 l
 721 1493 l
 
-ce} d
+ce} _d
 /five{1303 0 158 -29 1124 1493 sc
 221 1493 m
 1014 1493 l
@@ -306,7 +306,7 @@ ce} d
 332 787 277 768 221 743 c
 221 1493 l
 
-ce} d
+ce} _d
 /six{1303 0 143 -29 1174 1520 sc
 676 827 m
 585 827 513 796 460 734 c
@@ -337,7 +337,7 @@ ce} d
 813 1520 864 1515 915 1505 c
 967 1495 1021 1480 1077 1460 c
 
-ce} d
+ce} _d
 /seven{1303 0 168 0 1128 1493 sc
 168 1493 m
 1128 1493 l
@@ -348,7 +348,7 @@ ce} d
 168 1323 l
 168 1493 l
 
-ce} d
+ce} _d
 /nine{1303 0 129 -29 1159 1520 sc
 225 31 m
 225 215 l
@@ -379,7 +379,7 @@ ce} d
 332 904 358 819 411 757 c
 464 695 536 664 627 664 c
 
-ce} d
+ce} _d
 /eight{1303 0 139 -29 1163 1520 sc
 651 709 m
 555 709 479 683 424 632 c
@@ -419,7 +419,7 @@ ce} d
 564 1360 496 1338 447 1295 c
 399 1252 375 1191 375 1114 c
 
-ce} d
+ce} _d
 /t{803 0 55 0 754 1438 sc
 375 1438 m
 375 1120 l
@@ -441,7 +441,7 @@ ce} d
 190 1438 l
 375 1438 l
 
-ce} d
+ce} _d
 end readonly def
 
 /BuildGlyph {
@@ -450,12 +450,12 @@ end readonly def
  2 copy known not {pop /.notdef} if
  true 3 1 roll get exec
  end
-} d
+} _d
 
 /BuildChar {
  1 index /Encoding get exch get
  1 index /BuildGlyph get exec
-} d
+} _d
 
 FontName currentdict end definefont pop
 end

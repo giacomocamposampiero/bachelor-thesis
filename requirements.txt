@@ -1,9 +1,8 @@
-cplex
 numpy
 pyomo
 networkx
-itertools
 pandas
-mpl_toolkits
 matplotlib
 pyvis
+scipy
+
