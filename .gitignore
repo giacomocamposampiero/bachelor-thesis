@@ -1,4 +1,6 @@
 .ipynb_checkpoints/
+.python-version
+*.DS_Store
 __pycache__/
 document/*.aux
 document/*.log
