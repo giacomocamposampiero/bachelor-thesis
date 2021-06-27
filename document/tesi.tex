@@ -19,8 +19,8 @@
 
 	\begin{center}
 	
-	\includegraphics[scale=0.35]{images/unipd-bn.eps} \\ % \hfill \includegraphics[scale=0.2]{source-images/logo_dei.pdf}\\
-	\vspace{0.4cm}
+	\includegraphics[scale=0.11]{images/sigillo.eps} \\ % \hfill \includegraphics[scale=0.2]{source-images/logo_dei.pdf}\\
+	\vspace*{1cm}
 	\textsc{\LARGE Università degli Studi di Padova}\\
 	\vspace{0.25cm}
 	\textsc{\normalsize Dipartimento di Ingegneria dell'Informazione}\\
@@ -59,9 +59,6 @@
 \thispagestyle{empty}
 
 \clearpage{\pagestyle{plain}\cleardoublepage}
-\input{acknowledgments.tex}
-
-\clearpage{\pagestyle{plain}\cleardoublepage}
 \tableofcontents %Indice
 
 \clearpage{\pagestyle{plain}\cleardoublepage} %Numerazione araba per i capitoli
@@ -69,11 +66,16 @@
 
 \clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
 \chapter{Introduzione} % nome capitolo
-\label{chapter:primo} % label capitolo
+\label{chapter:zero} % label capitolo
 \input{introduzione.tex} % importa il capitolo dal corrispondente file
 
 \clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
-\chapter{Presentazione delle sperimentazioni} % nome capitolo
+\chapter{Nozioni preliminari} % nome capitolo
+\label{chapter:primo} % label capitolo
+\input{preliminari.tex} % importa il capitolo dal corrispondente file
+
+\clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
+\chapter{Approccio sperimentale} % nome capitolo
 \label{chapter:secondo} % label capitolo
 \input{descrizione.tex} % importa il capitolo dal corrispondente file
 
@@ -88,6 +90,12 @@
 \input{conclusioni.tex} % importa il capitolo dal corrispondente file
 
 \clearpage{\pagestyle{plain}\cleardoublepage} % inizia il nuovo capitolo su di una pagina dispari
+\chapter*{Ringraziamenti} % nome capitolo
+\label{chapter:ring} % label capitolo
+\addcontentsline{toc}{chapter}{Ringraziamenti}
+\input{acknowledgments.tex} % importa il capitolo dal corrispondente file
+
+\clearpage{\pagestyle{plain}\cleardoublepage} 
 \chapter*{Bibliografia} % nome capitolo
 \addcontentsline{toc}{chapter}{Bibliografia}
 \label{chapter:biblio} % label capitolo

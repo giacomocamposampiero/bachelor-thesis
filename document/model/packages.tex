@@ -4,7 +4,11 @@
 \usepackage{lmodern}
 
 % bibliografia
-\usepackage[backend=biber]{biblatex}
+\usepackage[
+	backend=biber,
+	style=numeric,
+    sorting=none
+]{biblatex}
 \appto{\bibsetup}{\sloppy}
 
 % formattazione url
@@ -16,7 +20,7 @@
 \restoreparindent
 
 % formule matematiche
-\usepackage{amsmath}
+\usepackage{amsmath,amsthm}
 \usepackage{amsfonts}
 \usepackage{mathtools}
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
@@ -37,6 +41,9 @@
 
 % inclusione immagini
 \usepackage{graphicx}
+
+% pseudocodice 
+\usepackage[ruled,vlined, spanish]{algorithm2e}
 
 % conversione immagini vettoriali
 \usepackage{epstopdf}
