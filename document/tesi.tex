@@ -14,6 +14,8 @@
 
 \begin{document}
 
+\renewcommand{\contentsname}{\vspace{-2cm} Indice \vspace{-0.5cm}}
+
 % FRONTESPIZIO 
 \begin{titlepage}
 
@@ -40,7 +42,7 @@
 	\vfill
 	% Data, AA
 	{\large Anno Accademico 2020/2021}\\
-	\textsl{\large Padova, 19 luglio 2021}
+	\textsl{\large Padova, 22 luglio 2021}
 	\end{center}
 \end{titlepage}
 
@@ -95,10 +97,11 @@
 \addcontentsline{toc}{chapter}{Ringraziamenti}
 \input{acknowledgments.tex} % importa il capitolo dal corrispondente file
 
-\clearpage{\pagestyle{plain}\cleardoublepage} 
+
+\pagestyle{plain}
+\cleardoublepage
 \chapter*{Bibliografia} % nome capitolo
 \addcontentsline{toc}{chapter}{Bibliografia}
-\label{chapter:biblio} % label capitolo
 \printbibliography[heading=none]
 
 \end{document}
