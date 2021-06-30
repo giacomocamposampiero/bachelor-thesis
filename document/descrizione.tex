@@ -19,9 +19,16 @@ dati nello studio delle realtà di loro interesse.
 Di conseguenza, nel corso degli ultimi decenni sono stati molti i metodi proposti dalla comunità scientifica al 
 fine di affrontare il problema. Tra questi ne sono stati selezionati quattro, sulla base delle proprietà e delle caratteristiche particolari di ciascuno di essi.  
 
-La gestione dei grafi a livello di codice è stata implementata utilizzando NetworkX, una libreria stabile e flessibile sviluppata appositamente per lo studio e la rappresentazione di grafi in Python \cite{networkx}. NetworkX offre, oltre alla possibilità di rappresentare grafi, diversi algoritmi per lo studio delle proprietà e il calcolo di determinate misure su istanze di grafi fornite. Questa libreria offre inoltre un insieme di metodi che implementano un gran numero di modelli standard noti in letteratura per la generazione di grafi, tra cui naturalmente quelli selezionati in questo lavoro. 
+La gestione dei grafi a livello di codice è stata implementata utilizzando NetworkX, una libreria stabile e flessibile sviluppata appositamente per lo studio e la rappresentazione di grafi in Python \cite{networkx}. NetworkX offre, oltre alla possibilità di rappresentare grafi, diversi algoritmi per lo studio delle proprietà e il calcolo di determinate misure su istanze di grafi fornite. Questa libreria offre inoltre un insieme di metodi che implementano un gran numero di modelli standard noti in letteratura per la generazione di grafi, tra cui naturalmente quelli utilizzati in questo lavoro. 
+
+Inoltre, tutti i grafi generati in questo lavoro sono stati salvati sotto forma di \textit{adjacency list}, in modo tale da poter essere letti ed elaborati da altri moduli del programma a posteriori. Il salvataggio è stato svolto mediante un apposito metodo della libreria,  \texttt{write\_adjlist(G, path)}. In una lista di adiacenze ogni nodo è rappresentato da una stringa nel formato
+\vspace{-0.6cm}
+\begin{equation*}
+\verb|nodo [vicino] [vicino] ... [vicino]|
+\end{equation*}
 
 \subsection{Modello di Erdős–Rényi}
+\label{subsec:er}
 Il modello di Erdős–Rényi è un modello per la generazione di grafi casuali, detti grafi Erdős–Rényi (\textsl{ER}) o binomiali, introdotto per la prima volta nel 1959 dai matematici ungheresi Paul Erdős e Alfréd Rényi \cite{erdos59a}. 
 Nella formulazione $G(n,p)$ del modello,  un grafo di $n$ nodi viene costruito secondo un procedimento iterativo, in cui ogni arco tra due nodi del grafo viene formato indipendentemente dagli altri con una probabilità fissa $p$.  
 
@@ -35,16 +42,16 @@ I parametri di questo modello sono quindi due, il numero di nodi del grafo $n$ e
 
 \begin{figure}[h!]
      \centering
-     \begin{subfigure}[b]{0.25\textwidth}
-         \includegraphics[width=\columnwidth]{images/gnpes0.eps}
+     \begin{subfigure}[b]{0.29\textwidth}
+         \includegraphics[width=\columnwidth]{images/gnpes2.eps}
      \end{subfigure}
      \hspace{0.8em}
-     \begin{subfigure}[b]{0.25\textwidth}
+     \begin{subfigure}[b]{0.29\textwidth}
          \includegraphics[width=\columnwidth]{images/gnpes1.eps}
      \end{subfigure}
      \hspace{0.8em}
-     \begin{subfigure}[b]{0.25\textwidth}
-         \includegraphics[width=\columnwidth]{images/gnpes2.eps}
+     \begin{subfigure}[b]{0.29\textwidth}
+         \includegraphics[width=\columnwidth]{images/gnpes0.eps}
      \end{subfigure}
         \caption{Diversi grafi $G(n,p)$ generati a partire dagli stessi parametri $n=10$ e $p=0.3$ con la libreria NetworkX e visualizzati graficamente con l'ausilio di un'altra libreria Python, Matplotlib \cite{Hunter2007}.}
         \label{fig:gnpes}
@@ -70,10 +77,52 @@ Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi 
 \texttt{gnp\_random\_graph(n, p, seed)}, che restituisce un'istanza di grafo $G(n,p)$ di dimensione \texttt{n} in cui gli archi hanno probabilità di essere generati pari a \texttt{p}, mentre il parametro \texttt{seed} regola il comportamento pseudo-casuale, in modo tale da permettere la riproducibilità degli esperimenti. Lo pseudo-codice dell'algoritmo che gestisce la generazione di questa tipologia di grafi è riportato in Algoritmo \ref{alg:gnp}.
 
 \subsection{Modello di Steger-Wormald}
-Nella teoria dei grafi, un grafo è detto \textit{regolare} di grado $d$ quando tutti i suoi vertici hanno lo stesso grado $d$, ossia lo stesso numero di archi incidenti. Un grafo regolare casuale è un grafo selezionato da $\mathcal{G}_{n,r}$, che denota lo spazio di probabilità di tutti i possibili grafi $r$-regolari di $n$ vertici, in cui $3\leq r < n$ e $nr$ è pari.Si tratta quindi di grafi casuali $G(n,p)$, le cui caratteristiche sono tuttavia significativamente diverse dal caso generale a causa del vincolo di regolarità.
+Nella teoria dei grafi, un grafo è detto \textit{regolare di grado} $d$ quando tutti i suoi vertici hanno lo stesso grado, ossia lo stesso numero di archi incidenti., pari a $d$ Un grafo regolare random è un grafo selezionato da $\mathcal{G}_{n,r}$, che denota lo spazio di probabilità di tutti i possibili grafi $r$-regolari di $n$ vertici, in cui $3\leq r < n$ e $nr$ è pari. In questo spazio ogni grafo $d$-regolare di $n$ nodi ha la stessa probabilità $\frac{1}{|\mathcal{G}_{n,r}|}$ di essere generato. Si tratta quindi di grafi random, le cui caratteristiche sono tuttavia significativamente diverse dal caso generale a causa del vincolo di regolarità.
 
-Dal momento che la maggior parte dei grafi casuali non sono regolari, l'implementazione di un algoritmo imparziale per la generazione di grafi regolari casuali non è così scontata. Il modello utilizzato nella generazione di questa particolare tipologia di grafi in questo lavoro è stato quello di Steger-Wormald, proposto nel 1999 dai matematici Angelika Steger e Nick Wormald \cite{steger_wormald_1999}. 
+Dal momento che la maggior parte dei grafi random (che possono essere generati ad esempio mediante il modello precedentemente esposto nella Sottosezione \ref{subsec:er}) non sono regolari, l'implementazione di un algoritmo imparziale per la generazione di grafi regolari casuali non è così scontata. 
 
+Un modello tipicamente utilizzato per la generazione di grafi $d$-regolari con $d$ piccolo è il cosiddetto \textit{pairing model}. Tale modello si basa sulla definizione di $n$ insiemi, uno per ogni vertice del grafo da generare, contenenti ciascuno $d$ elementi, tanti quanti il numero di archi che devono incidere ogni nodo. La costruzione del grafo avviene quindi selezionando iterativamente due insiemi $i$ e $j$, con $i \neq j$, aggiungendo al grafo l'arco $(i,j)$ e rimuovendo dai corrispettivi insiemi un elemento ciascuno. 
+
+In questo lavoro la generazione dei grafi regolari random è stata implementata utilizzando una versione ottimizzata del modello ad accoppiamento, proposta nel 1999 dai matematici Angelika Steger e Nick Wormald \cite{steger_wormald_1999}. Lo pseudo-codice dell'algoritmo utilizzato nel metodo proposto da questi ultimi è riportato in Algoritmo \ref{alg:rrg}. Alcuni esempi di grafi regolari random generati mediante il modello di Steger-Wormald sono riportati in Figura \ref{fig:rrges}.
+
+\begin{figure}[h!]
+     \centering
+     \begin{subfigure}[b]{0.25\textwidth}
+         \includegraphics[width=\columnwidth]{images/rrges-1.eps}
+     \end{subfigure}
+     \hspace{0.8em}
+     \begin{subfigure}[b]{0.25\textwidth}
+         \includegraphics[width=\columnwidth]{images/rrges0.eps}
+     \end{subfigure}
+     \hspace{0.8em}
+     \begin{subfigure}[b]{0.25\textwidth}
+         \includegraphics[width=\columnwidth]{images/rrges1.eps}
+     \end{subfigure}
+        \caption{Diversi grafi regolari di dimensione 10 generati utilizzando il metodo \texttt{random\_regular\_graph(d, n)} della libreria NetworkX con $d$ pari a, da sinistra verso destra,  2,3 e 4}
+        \label{fig:rrges}
+\end{figure}
+
+Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi è\\
+\texttt{random\_regular\_graph(d, n, seed)}, che restituisce un'istanza di grafo regolare di dimensione \texttt{n} in cui tutti i nodi hanno grado \texttt{d}. Il parametro \texttt{seed} anche in questo caso regola il comportamento pseudo-casuale della generazione, permettendo la replicabilità dell'esperimento.
+
+\newpage
+\begin{algorithm}
+\SetKwRepeat{Do}{do}{while}
+\SetAlgoLined
+\Do{G {\upshape non è $d$-regolare}}{
+	\KwIn{numero di nodi $n$ e numero di archi incidenti per ogni nodo $d$}
+	 inizializza un grafo $G$ con $n$ nodi e nessun vertice\;
+	 inizializza un insieme $S$ di coppie di nodi non adiacenti e il cui grado è al massimo $d-1$\;
+	 \Do{S {\upshape non è vuoto}}{
+	 	assegna ad ogni coppia $(u,v)$ in $S$ una probabilità di essere scelta proporzionale a $(d-d(u))(d-d(v))$\;
+	 	scegli una coppia $(u,v)$ da $S$ sulla base delle probabilità calcolate\;
+	 	aggiungi l'arco ${u,v}$ a $g$\;
+	 }
+ }
+ \Return{$G$}
+ \caption{Generazione di un grafo regolare con il modello di Steger-Wormald}
+ \label{alg:rrg}
+\end{algorithm}
 
 
 \subsection{Modello di Watts-Strogatz}
@@ -87,7 +136,7 @@ Watts e Strogatz, partendo dalle osservazioni di Milgram, verificarono che diver
 \item tendenza al raggruppamento in cluster all'interno della rete, che si traduce in regolarità e località del grafo
 \end{itemize}
 
-Nessuno dei principali metodi di generazione di grafi casuali garantiva tuttavia la generazione di grafi con tali caratteristiche. I grafi $G(n,p)$ infatti presentano caratteristiche simili a reti small-world, ma non hanno un alto coefficiente di clusterizzazione. Al contrario, i grafi regolari presentano un alto coefficiente di clusterizzazione ma lunghezza media dei cammini minimi generalmente elevata. Per questa ragione, Watts e Strogatz proposero un nuovo modello di generazione di grafi casuali,  basato su modifiche iterative di un grafo regolare ad anello basate sul \textit{rewiring} di archi del grafo, controllato dal parametro $p$ (che modula la regolarità o, viceversa, la casualità del grafo prodotto, come mostrato in Figura \ref{fig:incwsg}). Queste modifiche consentono, per opportuni valori di $p$,  la conservazione di un alto livello di clustering locale ma, allo stesso tempo, abbattono la lunghezza del cammino minimo tra nodi del grafo mediante l'aggiunta di collegamenti casuali.  Un andamento di queste due proprietà al variare del valore di $p$ è riportato in Figura \ref{fig:lcwsg}. Lo pseudo-codice di questo metodo è riportato in Algoritmo \ref{alg:wsg}.
+Nessuno dei principali metodi di generazione di grafi casuali garantiva tuttavia la generazione di grafi con tali caratteristiche. I grafi $G(n,p)$ infatti presentano caratteristiche simili a reti small-world, ma non hanno un alto coefficiente di clusterizzazione. Al contrario, i grafi regolari presentano un alto coefficiente di clusterizzazione ma lunghezza media dei cammini minimi generalmente elevata. Per questa ragione, Watts e Strogatz proposero un nuovo modello di generazione di grafi casuali,  basato su modifiche iterative di un grafo regolare ad anello mediante il \textit{rewiring} di archi del grafo, controllato dal parametro $p$ (che modula la regolarità o, viceversa, la casualità del grafo prodotto, come mostrato in Figura \ref{fig:incwsg}). Queste modifiche consentono, per opportuni valori di $p$,  la conservazione di un alto livello di clustering locale ma, allo stesso tempo, abbattono la lunghezza del cammino minimo tra nodi del grafo mediante l'aggiunta di collegamenti casuali.  Un andamento di queste due proprietà al variare del valore di $p$ è riportato in Figura \ref{fig:lcwsg}. Lo pseudo-codice di questo metodo è riportato in Algoritmo \ref{alg:wsg}.
 
 \begin{figure}[h!]
      \centering
@@ -175,7 +224,7 @@ Sebbene descriva per certi versi grafi reali, grazie alla sua natura scale-free,
 %----------------------------------NEW SECTION
 \newpage
 \section{Generazione delle istanze di problemi MIP}
-Terminata la generazione dei grafi, costituenti il \textit{dataset} grezzo alla base di questo lavoro, è stato necessario tradurre ciascuno di essi nella corrispondente formulazione in forma di problema di programmazione lineare intera. Per fare questo si è inizialmente dovuta stilare una modellazione algebrica del problema stesso, definendo variabili, vincoli e funzione obiettivo con cui rappresentarlo formalmente. Solo in un secondo momento si è quindi potuto procedere con la modellazione delle singole istanze, mediante l'ausilio di un'apposita libreria.
+Terminata la generazione dei grafi, costituenti il \textit{dataset} grezzo alla base di questo lavoro, è stato necessario tradurre ciascuno di essi nella corrispondente formulazione in forma di problema di programmazione lineare intera. Per fare questo si è inizialmente dovuta stilare una modellazione algebrica del problema stesso, definendo variabili, vincoli e funzione obiettivo con cui rappresentarlo formalmente. Solo in un secondo momento è stato quindi possibile procedere con l'implementazione del modello nel software e la costruzione delle singole istanze, mediante l'ausilio di un'apposita libreria Python.
 
 \subsection{Modellazione algebrica}
 Un \textit{modello algebrico} di un problema di programmazione lineare intera è un modello che descrive le caratteristiche della soluzione ottima al problema mediante relazioni matematiche. Un modello algebrico è composto dai seguenti elementi:
@@ -222,12 +271,11 @@ Il modello algebrico del problema di programmazione lineare del minimo vertex co
 Al fine di tradurre le istanze di grafo generate con NetworkX in istanze di problemi MIP nella forma (\ref{eq:mipprob}) che potessero essere risolte da CPLEX è stata utilizzata un'altra libreria Python, Pyomo \cite{bynum2021pyomo}\cite{hart2011pyomo}. Si tratta anche in questo caso di una libreria open-source, stabile e largamente utilizzata per formulare, risolvere ed analizzare modelli per l'ottimizzazione.
 
 Una caratteristica molto importante di questa libreria, che è stata sfruttata in questo lavoro, è la separazione che viene mantenuta tra modello e dati.
-In particolare, questa libreria permette la definizione di un modello astratto, chiamato \texttt{AbstractModel}, che consiste in una struttura molto simile al modello algebrico e che può essere, in un secondo momento, popolata mediante i dati delle singole istanze del problema.
+In particolare, Pyomo permette la definizione di un modello astratto, chiamato \texttt{AbstractModel}, che è definito secondo una struttura molto simile al modello algebrico e che può essere, in un secondo momento, popolata con i dati delle singole istanze del problema.
 
 
 
 
- 
 
 %----------------------------------NEW SECTION
 
@@ -295,3 +343,32 @@ Gli output prodotti da CPLEX nella risoluzione di ciascuna istanza sono stati me
 %----------------------------------NEW SECTION
 
 \section{Estrazione ed analisi dei risultati}
+L'estrazione dei dati dai file di testo contenenti gli output del risolutore è stata anch'essa implementata mediante un semplice script dedicato, sviluppato in linguaggio Python. Lo script permette, in maniera sequenziale, di leggere tutti i file contenenti gli output del risolutore in una specifica cartella e produrre, a partire da questi ultimi, un file CSV (\textit{Comma-Separated Values}, formato di file basato su file di testo molto utilizzato nell'importazione ed esportazione di una tabella di dati) per ciascuna delle classi di grafo analizzate. Un esempio della struttura di uno dei quattro file CSV ottenuti come output è riportato in Figura \ref{fig:csv}.
+
+\begin{figure}[h!]
+     \centering
+       \includegraphics[scale=0.6]{images/csv.eps}
+       \caption{Esempio di struttura di un file CSV contenente i risultati della risoluzione di tutti i problemi di vertex cover di una certa tipologia di grafi, in questo caso corrispondente ai grafi $G(n,p)$.}
+        \label{fig:csv}
+\end{figure}
+Come si può notare dalla figura precedente, per ognuna delle istanze sono stati salvati diversi dati sulla risoluzione e sul grafo associato al problema di ottimizzazione, tra cui:
+\begin{itemize}
+	\item \textit{name}, codice univoco associato a ciascuna delle istanze di grafo generate
+	\item \textit{parametri di generazione del grafo}, eterogenei tra le diverse tipologie di grafi analizzati; in Figura \ref{fig:csv}, trattandosi di un grafo $G(n,p)$, si possono osservare il numero di nodi $n$ e la probabilità di generazione di ogni arco $p$
+	\item \textit{seed}, seme random utilizzato nella generazione del grafo
+	\item \textit{time}, tempo impiegato dal risolutore a trovare una soluzione ottima o, in alternativa, il TIME\_LIMIT imposto
+	\item \textit{ticks}, altra misura effettuata da CPLEX di quanto il risolutore ha impiegato a risolvere l'istanza del problema
+	\item \textit{sol\_nodes}, cardinalità del vertex cover individuato, che corrisponde al valore della funzione obiettivo al termine dell'ultima iterazione
+	\item \textit{gap}, gap di ottimalità tra soluzione trovata e lower bound al valore della soluzione
+	\item \textit{time\_limit}, valore booleano che specifica se il risolutore è andato in TIME\_LIMIT o meno
+	\item \textit{edges}, numero di archi dell'istanza di grafo
+	\item \textit{cnnct\_cmp}, numero di componenti connesse dell'istanza di grafo
+	\item \textit{avg\_clust}, indice di clustering globale medio del grafo
+	\item \textit{std\_dev\_clust}
+\end{itemize}
+
+L'analisi dei dati estratti è stata infine svolta con il supporto di un Jupyter Notebook \cite{jupyter}, applicazione web open-source che permette di coniugare in un unico documento testo ed esecuzione di codice. 
+
+
+
+
