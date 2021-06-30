@@ -89,7 +89,7 @@ def extract_results(classes = ["gnp", "bag", "rrg", "wsg"]):
     writers = [csv.writer(open("data/"+classes[i]+".csv", 'w')) for i in range(len(classes))]
     # standard labes
     labels_st = ['name']
-    labels_rd = ['time', 'ticks','sol_nodes', 'gap', 'time_lim', 'edges', 'cnnct_cmp', 'avg_clust', 'std_dev_clust']
+    labels_rd = ['time', 'ticks','sol_nodes', 'gap', 'time_lim', 'edges', 'cnnct_cmp', 'avg_clust', 'avg_deg', 'std_deg']
     # get experiment parameters for the classes specified
     parameters = graph_parameters(classes)
     # write labels in each file
@@ -119,4 +119,4 @@ def extract_results(classes = ["gnp", "bag", "rrg", "wsg"]):
             writers[classes.index(name[0:3])].writerow(row)
 
 if __name__ == "__main__":
-    extract_results(classes = ['rrg'])
+    extract_results()
