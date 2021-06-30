@@ -38,7 +38,9 @@ def analyze_graph(graph):
     info.append(nx.number_connected_components(graph))
     clustering = nx.clustering(graph)
     info.append(mean(list(clustering.values())))
-    info.append(std(list(clustering.values())))
+    degrees = [val for (node, val) in graph.degree()]
+    info.append(mean(degrees))
+    info.append(std(degrees))
     return info
     
 def graph_parameters(classes):

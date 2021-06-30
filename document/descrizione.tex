@@ -271,10 +271,9 @@ Il modello algebrico del problema di programmazione lineare del minimo vertex co
 Al fine di tradurre le istanze di grafo generate con NetworkX in istanze di problemi MIP nella forma (\ref{eq:mipprob}) che potessero essere risolte da CPLEX è stata utilizzata un'altra libreria Python, Pyomo \cite{bynum2021pyomo}\cite{hart2011pyomo}. Si tratta anche in questo caso di una libreria open-source, stabile e largamente utilizzata per formulare, risolvere ed analizzare modelli per l'ottimizzazione.
 
 Una caratteristica molto importante di questa libreria, che è stata sfruttata in questo lavoro, è la separazione che viene mantenuta tra modello e dati.
-In particolare, Pyomo permette la definizione di un modello astratto, chiamato \texttt{AbstractModel}, che è definito secondo una struttura molto simile al modello algebrico e che può essere, in un secondo momento, popolata con i dati delle singole istanze del problema.
+In particolare, Pyomo permette la definizione di un modello astratto, chiamato \texttt{AbstractModel}, che è definito secondo una struttura molto simile al modello algebrico e in cui non è richiesto che sia specificato nessun dato del problema. La definizione di questi ultimi sarà necessaria solo nel momento in cui si andrà a creare un'istanza concreta del modello stesso, chiamata \texttt{ConcreteModel}.
 
-
-
+Le istanze generate in questo modo sono state salvate in file \texttt{lp}, formato utilizzato da CPLEX per il salvataggio di istanze di problemi di programmazione lineare in forma algebrica. 
 
 
 %----------------------------------NEW SECTION
@@ -351,24 +350,43 @@ L'estrazione dei dati dai file di testo contenenti gli output del risolutore è 
        \caption{Esempio di struttura di un file CSV contenente i risultati della risoluzione di tutti i problemi di vertex cover di una certa tipologia di grafi, in questo caso corrispondente ai grafi $G(n,p)$.}
         \label{fig:csv}
 \end{figure}
-Come si può notare dalla figura precedente, per ognuna delle istanze sono stati salvati diversi dati sulla risoluzione e sul grafo associato al problema di ottimizzazione, tra cui:
-\begin{itemize}
-	\item \textit{name}, codice univoco associato a ciascuna delle istanze di grafo generate
-	\item \textit{parametri di generazione del grafo}, eterogenei tra le diverse tipologie di grafi analizzati; in Figura \ref{fig:csv}, trattandosi di un grafo $G(n,p)$, si possono osservare il numero di nodi $n$ e la probabilità di generazione di ogni arco $p$
-	\item \textit{seed}, seme random utilizzato nella generazione del grafo
-	\item \textit{time}, tempo impiegato dal risolutore a trovare una soluzione ottima o, in alternativa, il TIME\_LIMIT imposto
-	\item \textit{ticks}, altra misura effettuata da CPLEX di quanto il risolutore ha impiegato a risolvere l'istanza del problema
-	\item \textit{sol\_nodes}, cardinalità del vertex cover individuato, che corrisponde al valore della funzione obiettivo al termine dell'ultima iterazione
-	\item \textit{gap}, gap di ottimalità tra soluzione trovata e lower bound al valore della soluzione
-	\item \textit{time\_limit}, valore booleano che specifica se il risolutore è andato in TIME\_LIMIT o meno
-	\item \textit{edges}, numero di archi dell'istanza di grafo
-	\item \textit{cnnct\_cmp}, numero di componenti connesse dell'istanza di grafo
-	\item \textit{avg\_clust}, indice di clustering globale medio del grafo
-	\item \textit{std\_dev\_clust}
-\end{itemize}
+
+Come si può notare dalla figura precedente, per ognuna delle istanze sono stati salvati diversi dati sulla risoluzione e sul grafo associato al problema di ottimizzazione. Una breve spiegazione di ciascuno di essi è stata riportata in Tabella \ref{tab:par}.
+
+\begin{table}[ht]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{|p{0.35\linewidth} | p{0.6\linewidth}|}
+\hline
+\textsf{name} & codice univoco associato a ciascuna delle istanze di grafo generate\\
+\hline
+\textsf{parametri generazione del grafo}& combinazione dei parametri con cui è stata generata l'istanza di grafo; a diverse tipologie di grafo corrispondono diversi insiemi di parametri\\
+\hline
+\textsf{seed} & seme random utilizzato nella generazione del grafo\\
+\hline
+\textsf{time} & tempo impiegato dal risolutore a trovare una soluzione ottima o, in alternativa, il TIME\_LIMIT imposto\\
+\hline
+\textsf{ticks} & misura effettuata da CPLEX di quanto il risolutore ha impiegato a risolvere l'istanza del problema\\
+\hline
+\textsf{sol\_nodes} & cardinalità del vertex cover individuato, che corrisponde al valore della funzione obiettivo al termine dell'ultima iterazione\\
+\hline
+\textsf{gap} & gap di ottimalità tra soluzione trovata e lower bound al valore della soluzione\\
+\hline
+\textsf{time\_limit} & valore booleano che specifica se il risolutore è andato in TIME\_LIMIT o meno\\
+\hline
+\textsf{edges} & numero di archi dell'istanza di grafo\\
+\hline
+\textsf{cnnct\_cmp} & numero di componenti connesse dell'istanza di grafo\\
+\hline
+\textsf{avg\_clust} & indice di clustering globale medio del grafo\\
+\hline
+\textsf{avg} & \\
+\hline
+\end{tabular}}
+\caption{Informazioni estratte per ogni istanza di problema di vertex cover risolta.} 
+\label{tab:par}
+\end{table} 
 
 L'analisi dei dati estratti è stata infine svolta con il supporto di un Jupyter Notebook \cite{jupyter}, applicazione web open-source che permette di coniugare in un unico documento testo ed esecuzione di codice. 
-
-
 
 

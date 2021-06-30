@@ -55,12 +55,14 @@ def build_model():
 
 # vertex cover instance creation
 # the created instance is returned to the caller
-def create_instance(graph):
+def create_instance(model, graph):
     """
     Vertex cover instance creation
     
     Params
     ------
+    model : mip model
+            abstract model to be instanciated
     graph : dict
             dictionary containing the parameters to build the abstract model
     Returns
@@ -69,12 +71,13 @@ def create_instance(graph):
         concrete instance of the problem created using the parametric values
         (edges and nodes) given
     """
-    model = build_model()
     return model.create_instance(graph)
 
 if __name__ == "__main__":
     # set the folder where graph instances are stored
     folder = "graph-instances/"
+    # create the mip model for that graph
+    model = build_model()
     # build a list of file names contained in that folder
     files = [f for f in listdir(folder) if isfile(join(folder, f))]
     # for each graph instance
@@ -83,7 +86,7 @@ if __name__ == "__main__":
         id = name.split(".")[0]
         # build the graph from the adjacency list
         graph = nx.read_adjlist(folder + name)
-        # create the mip model for that graph
-        instance = create_instance({None: {'vertices': {None: graph.nodes}, 'edges': {None: graph.edges}}})
+        # generate instance
+        instance = create_instance(model, {None: {'vertices': {None: graph.nodes}, 'edges': {None: graph.edges}}})
         # write the mip instance in the dedicated directory 
         instance.write("mip-instances/"+id+".lp")
