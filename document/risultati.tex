@@ -2,14 +2,15 @@ Conclusa la presentazione dell'approccio adottato nelle sperimentazioni, si proc
 
 La macchina utilizzata nella risoluzione delle diverse istanze in questi esperimenti presenta le seguenti specifiche tecniche:
 \begin{itemize}
-\item
-\item
-\item
+\item Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz quad-core
+\item 16GB RAM
+\item Python 3.6.8
+\item IBM ILOG CPLEX Optimization Studio versione 12.9
 \end{itemize}
 
 \newpage
 \section{Risultati per grafi $G(n,p)$}
-La prima categoria di grafi di cui sono stati analizzati i risultati sono i grafi $G(n,p)$, generati utilizzando il modello di Erdős–Rényi. 
+La prima categoria di grafi di cui sono stati analizzati i risultati sono i grafi $G(n,p)$, generati utilizzando il modello di Erdős–Rényi (esposta nella Sottosezione \ref{subsec:er}).
 
 Per prima cosa è stata studiata la correlazione tra la probabilità di generazione di ogni arco e il tempo impiegato da CPLEX nella soluzione dell'istanza del problema di vertex cover, per ciascuno dei parametri di dimensione utilizzati. Per fare questo è stato disegnato un grafico, riportato di seguito in Figura \ref{fig:gnp2d}.
 \vspace{-0.5cm}
@@ -32,19 +33,102 @@ Per approfondire meglio il ruolo della dimensione nella determinazione della com
         \label{fig:gnpp}
 \end{figure}
 
-Come si può evincere dal grafo precedente, istanze di grafi più grandi diventano computazionalmente intrattabili molto prima rispetto a istanze dalla dimensione più contenuta, a parità di $p$. Tuttavia, come dimostra il grafico in Figura \ref{fig:gnpp} ottenuto per $p=0.9$,  il contributo dato dal numero di nodi alla complessità di risoluzione sembra essere secondario rispetto al ruolo giocato invece da $p$. 
+Come si può evincere dal grafo precedente, istanze di grafi più grandi diventano computazionalmente intrattabili molto prima rispetto a istanze dalla dimensione più contenuta, a parità di $p$. Tuttavia, come dimostra il grafico in Figura \ref{fig:gnpp} ottenuto per $p=0.9$,  il contributo dato dal numero di nodi alla complessità di risoluzione sembra essere secondario rispetto al ruolo giocato dalla probabilità di generazione di ogni arco $p$. 
 
 In Figura \ref{fig:gnp3d} viene infine riportato un grafico tridimensionale riassuntivo, che rappresenta in un'unica immagine il variare della complessità del problema rispetto ad entrambi i parametri utilizzati nella generazione del grafo.
-\vspace{-0cm}
+\vspace{-1cm}
 \begin{figure}[h!]
      \centering
        \includegraphics[scale=0.5]{images/gnp-3d.eps}
-       \caption{Andamento della complessità del problema di vertex cover per grafi $G(n,p)$ al variare dei parametri $p$ ed $n$.}
+       \vspace{-0.8cm}
+       \caption{Rappresentazione tridimensionale dell'andamento della complessità del problema di vertex cover per grafi $G(n,p)$ al variare dei parametri $p$ ed $n$.Colori più caldi indicano una complessità maggiore ed il colore rosso scuro è generalmente sinonimo di raggiungimento del time limit imposto al risolutore}
         \label{fig:gnp3d}
 \end{figure}
 
-\section{Grafi regolari}
 
-\section{Grafi di Watts-Strogatz}
+\section{Risultati per grafi regolari}
+La seconda categoria di grafi per cui è stata analizzato l'andamento della complessità computazionale è stata quella dei grafi regolari, generati secondo il modello di Steger-Wormald, già descritto nella Sottosezione \ref{subsec:steger}).
 
-\section{Grafi di Barabási-Albert}
+In questo caso, una prima analisi è stata fatta studiando l'andamento della complessità computazionale del problema di vertex cover associato al variare del numero del grado di ciascun nodo $d$, per ognuna delle dimensioni di grafo specificate. Il grafico risultante da questa analisi è riportato in Figura \ref{fig:rrgd}. A differenza dei grafi $G(n,p)$, in cui a parità di parametri di generazione $n$ e $p$ il tempo di risoluzione dimostrava oscillazioni quasi trascurabili per i diversi semi utilizzati, per questa tipologia di grafi le oscillazioni tra grafi generati a partire da semi diversi risultano essere molto marcate. Per questa ragione è stato considerato per ognuna delle coppie $(n,d)$ il valore medio del tempo di risoluzione. 
+\vspace{-1cm}
+\begin{figure}[h!]
+     \centering
+       \includegraphics[scale=0.5]{images/rrg-d.eps}
+       \caption{Andamento della complessità del problema di vertex cover per grafi regolari al variare del grado di ciascun nodo $d$, per diversi valori di dimensione $n$.}
+        \label{fig:rrgd}
+\end{figure}
+
+In questo caso risulta molto difficile, se non impossibile, riuscire a trovare un pattern ricorrente nei comportamenti delle diverse istanze. Una debole ipotesi sulla correlazione tra dimensione del grafo e complessità del problema potrebbe essere avanzata per questa particolare tipologia di grafi, sebbene esistano due valori di dimensione ($n=200$ e $n=250$) che si comportano esattamente al contrario di quanto previsto. Questa anomalia potrebbe essere tuttavia dovuta al fatto che i due grafi si trovano in una zona di confine tra complessità, in cui la forma delle particolari istanze influenza fortemente l'esito nella risoluzione del problema.
+
+Una proprietà comune alle istanze di tutte le dimensioni (escluse quelle di dimensione più piccola generate per $n=100$) sembra poi essere un'inversione di tendenza della complessità del problema (sia in meglio che in peggio) in una finestra di valori del parametro $d$ che compresa tra 3 e 10. Questo fenomeno fa si che istanze di grande dimensione che per tutti gli altri valori di $d$ risultano perennemente irrisolvibili diventino molto facili e, al contrario, istanze di piccola dimensione che risultano essere sempre risolte con semplicità vadano in time limit. Una rappresentazione tridimensionale dell'andamento della complessità al variare dei due parametri in contemporanea, che permette di apprezzare meglio questo fenomeno, è riportata in Figura \ref{fig:rrg3d}.
+
+\begin{figure}[h!]
+     \centering
+       \includegraphics[scale=0.5]{images/rrg3d.eps}
+       \caption{Rappresentazione tridimensionale dell'andamento della complessità del problema di vertex cover per grafi regolari al variare dei parametri $d$ ed $n$. Anche in questo caso colori più caldi indicano una complessità maggiore, ed il colore rosso scuro è generalmente sinonimo di raggiungimento del time limit imposto al risolutore}      
+        \label{fig:rrg3d}
+\end{figure}
+
+Anche in questo caso, dare una spiegazione a questo fenomeno risulta molto complicato e sarebbe necessaria un'analisi più approfondita sulla forma delle specifiche istanze dei grafi e sullo sulle loro proprietà.
+
+\section{Risultati per grafi di Watts-Strogatz}
+
+\newpage
+\section{Risultati per grafi di Barabási-Albert}
+L'ultima categoria di grafi di cui sono stati analizzati i risultati sperimentali sono stati quelli generati mediante il modello di Barabási-Albert, già trattato nella Sottosezione \ref{subsec:barab}. 
+
+Per prima cosa è stata analizzata la correlazione tra dimensione del grafo e complessità nella risoluzione del problema, estrapolando una curva per ognuno degli insiemi di misurazioni legate ad uno specifico valore del parametro $d$.  L'andamento ottenuto si è dimostrato essere marcatamente esponenziale (crescente), ed è stato possibile anche in questo caso applicare il metodo della regressione lineare al fine di ottenere delle curve in grado di approssimare sufficientemente bene l'andamento del tempo impiegato dal risolutore ad ottenere una soluzione.Il grafico che è risultato da questo studio dei risultati è riportato in Figura \ref{fig:bag1}.
+
+\begin{figure}[h!]
+     \centering
+       \includegraphics[scale=0.5]{images/bag.eps}
+       \caption{Andamento del tempo impiegato da CPLEX per risolvere l'istanza di problema (ordinata) in funzione della grandezza del grafo (ascissa), per diversi valori del parametro $d$.}      
+        \label{fig:bag1}
+\end{figure}
+
+In seconda istanza è stato analizzato il contributo del parametro $m$, mantenendo questa volta costante il numero dei nodi appartenenti al grafo. Come si può evincere dai grafici riportati in Figura \ref{fig:bagma}, il parametro $m$ sembra avere un impatto marginale sulla complessità del problema, o almeno non paragonabile a quello determinato dalla dimensione del problema stesso. 
+
+
+\begin{figure}[h!]
+     \centering
+     \begin{subfigure}[b]{\textwidth}
+     	\centering
+	     \begin{subfigure}[b]{0.32\textwidth}
+	         \includegraphics[width=\columnwidth]{images/bagm0.eps}
+	     \end{subfigure}
+	     \hspace{0em}
+	     \begin{subfigure}[b]{0.32\textwidth}
+	         \includegraphics[width=\columnwidth]{images/bagm1.eps}
+	     \end{subfigure}
+	     \hspace{0em}
+	     \begin{subfigure}[b]{0.32\textwidth}
+	         \includegraphics[width=\columnwidth]{images/bagm2.eps}
+	     \end{subfigure}
+	  \end{subfigure}
+	  \begin{subfigure}[b]{\textwidth}
+	  	\centering
+	      \begin{subfigure}[b]{0.32\textwidth}
+	         \includegraphics[width=\columnwidth]{images/bagm3.eps}
+	     \end{subfigure}
+	     \hspace{0em}
+	      \begin{subfigure}[b]{0.32\textwidth}
+	         \includegraphics[width=\columnwidth]{images/bagm4.eps}
+	     \end{subfigure}
+	     \hspace{0em}
+	      \begin{subfigure}[b]{0.32\textwidth}
+	         \includegraphics[width=\columnwidth]{images/bagm5.eps}
+	     \end{subfigure}
+		\end{subfigure}
+        \caption{Andamento del tempo di risoluzione in funzione del parametro $m$, che rappresenta il numero di nodi esistenti a cui è collegato un nuovo nodo nel processo iterativo di costruzione del grafo, per valori di $n$ fissati.}
+        \label{fig:bagma}
+\end{figure}
+
+
+
+Infine, anche in questo caso è stata elaborata un'immagine tridimensionale per visualizzare l'andamento della complessità del problema di vertex cover associato all'istanza di grafo al variare di entrambi i parametri di generazione $m$ e $n$.
+\begin{figure}[h!]
+     \centering
+       \includegraphics[scale=0.5]{images/bag-3d.eps}
+       \caption{Rappresentazione tridimensionale dell'andamento della complessità del problema di vertex cover per grafi regolari al variare dei parametri $d$ ed $n$. Anche in questo caso colori più caldi indicano una complessità maggiore, ed il colore rosso scuro è generalmente sinonimo di raggiungimento del time limit imposto al risolutore}      
+        \label{fig:bag3d}
+\end{figure}
