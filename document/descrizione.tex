@@ -19,7 +19,7 @@ dati nello studio delle realtà di loro interesse.
 Di conseguenza, nel corso degli ultimi decenni sono stati molti i metodi proposti dalla comunità scientifica al 
 fine di affrontare il problema. Tra questi ne sono stati selezionati quattro, sulla base delle proprietà e delle caratteristiche particolari di ciascuno di essi.  
 
-La gestione dei grafi a livello di codice è stata implementata utilizzando NetworkX, una libreria stabile e flessibile sviluppata appositamente per lo studio e la rappresentazione di grafi in Python \cite{networkx}. NetworkX offre, oltre alla possibilità di rappresentare grafi, diversi algoritmi per lo studio delle proprietà e il calcolo di determinate misure su istanze di grafi fornite. Questa libreria offre inoltre un insieme di metodi che implementano un gran numero di modelli standard noti in letteratura per la generazione di grafi, tra cui naturalmente quelli utilizzati in questo lavoro. 
+La gestione dei grafi a livello di codice è stata implementata utilizzando NetworkX, una libreria stabile e flessibile sviluppata appositamente per lo studio e la rappresentazione di grafi in Python \cite{networkx}. NetworkX offre, oltre alla possibilità di rappresentazione, diversi algoritmi per lo studio delle proprietà e il calcolo di determinate misure su istanze di grafi fornite. La libreria comprende inoltre inoltre un insieme di metodi che implementano un gran numero di modelli standard noti in letteratura per la generazione di grafi, tra cui naturalmente quelli utilizzati in questo lavoro. 
 
 Inoltre, tutti i grafi generati in questo lavoro sono stati salvati sotto forma di \textit{adjacency list}, in modo tale da poter essere letti ed elaborati da altri moduli del programma a posteriori. Il salvataggio è stato svolto mediante un apposito metodo della libreria,  \texttt{write\_adjlist(G, path)}. In una lista di adiacenze ogni nodo è rappresentato da una stringa nel formato
 \vspace{-0.6cm}
@@ -30,13 +30,9 @@ Inoltre, tutti i grafi generati in questo lavoro sono stati salvati sotto forma 
 \subsection{Modello di Erdős–Rényi}
 \label{subsec:er}
 Il modello di Erdős–Rényi è un modello per la generazione di grafi casuali, detti grafi Erdős–Rényi (\textsl{ER}) o binomiali, introdotto per la prima volta nel 1959 dai matematici ungheresi Paul Erdős e Alfréd Rényi \cite{erdos59a}. 
-Nella formulazione $G(n,p)$ del modello,  un grafo di $n$ nodi viene costruito secondo un procedimento iterativo, in cui ogni arco tra due nodi del grafo viene formato indipendentemente dagli altri con una probabilità fissa $p$.  
+Nella formulazione $G(n,p)$ del modello,  un grafo di $n$ nodi viene costruito secondo un procedimento iterativo, in cui ogni arco tra due nodi del grafo viene generato con una probabilità $p$ fissata ed indipendentemente da quella con cui sono generati gli altri archi.  
 
-\theoremstyle{definition}
-\newtheorem{definizione}{Definizione}
-\begin{definizione}
-Un grafo ER, anche detto $G(n,p)$, è un grafo (N,G) con $N={1,2,\dots n}$ insieme dei nodi e in cui la matrice delle adiacenze G = $(g_{ij})$ è tale per cui, per ogni coppia di nodi distinti $i$ e $j$, a probabilità che $g_{ij} = 1$ è $P(g_{ij}=1)=p,$, con $p \in [0,1]$ fissato. 
-\end{definizione}
+Formalmente, un grafo ER, anche detto $G(n,p)$, è un grafo (N,G) con $N={1,2,\dots n}$ insieme dei nodi e in cui la matrice delle adiacenze G = $(g_{ij})$ è tale per cui, per ogni coppia di nodi distinti $i$ e $j$, la probabilità che $g_{ij} = 1$ è $P(g_{ij}=1)=p$, con $p \in [0,1]$. 
 
 I parametri di questo modello sono quindi due, il numero di nodi del grafo $n$ e la probabilità di generazione di ogni arco $p$.  A parità di parametri, i grafi che si possono ottenere sono in ogni caso molti, come mostrato in Figura \ref{fig:gnpes}. 
 
@@ -57,15 +53,18 @@ I parametri di questo modello sono quindi due, il numero di nodi del grafo $n$ e
         \label{fig:gnpes}
 \end{figure}
 
+Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi è \linebreak
+\texttt{gnp\_random\_graph(n, p, seed)}, che restituisce un'istanza di grafo $G(n,p)$ di dimensione \texttt{n} in cui gli archi hanno probabilità di essere generati pari a \texttt{p}, mentre il parametro \texttt{seed} regola il comportamento pseudo-casuale, in modo tale da permettere la riproducibilità degli esperimenti. Lo pseudo-codice dell'algoritmo che gestisce la generazione di questa tipologia di grafi è riportato in Algoritmo \ref{alg:gnp}.
+
 \begin{algorithm}
 \SetAlgoLined
 \KwIn{numero di nodi $n$ e probabilità di generazione di ogni arco $p$}
  inizializza il grafo vuoto $G$\;
  aggiungi i nodi $1 \dots n$ a $G$\;
- \ForEach{{\upshape arco} e {\upshape tra due nodi del grafo}}{
+ \ForEach{{\upshape coppia di nodi} e=(i,j)}{
  	$rand$ = numero casuale $\in [0,1]$\;
  	\If{rand $>$ p} {
- 		aggiungi $e$ a $G$\;
+ 		aggiungi l'arco $e$ a $G$\;
  	}
  }
  \Return{$G$}
@@ -73,40 +72,42 @@ I parametri di questo modello sono quindi due, il numero di nodi del grafo $n$ e
  \label{alg:gnp}
 \end{algorithm}
 
-Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi è \linebreak
-\texttt{gnp\_random\_graph(n, p, seed)}, che restituisce un'istanza di grafo $G(n,p)$ di dimensione \texttt{n} in cui gli archi hanno probabilità di essere generati pari a \texttt{p}, mentre il parametro \texttt{seed} regola il comportamento pseudo-casuale, in modo tale da permettere la riproducibilità degli esperimenti. Lo pseudo-codice dell'algoritmo che gestisce la generazione di questa tipologia di grafi è riportato in Algoritmo \ref{alg:gnp}.
+Tuttavia, l'assunto principale su cui è basata la generazione in questo modello, ovvero che a tutti gli archi è associata una probabilità di generazione uguale ed indipendente da quella degli altri archi, potrebbe risultare poco veritiero nella generazione di grafi casuali il cui scopo è modellare certe categorie di fenomeni del mondo reale. Molte proprietà dei grafi nel mondo reale, infatti, non riescono ad essere replicate da questo particolare modello di generazione casuale.
+
+Per questa ragione sono stati sviluppati nel corso del tempo diversi altri modelli di generazione basati su meccanismi completamente diversi, come ad esempio \textit{rewiring} e \textit{preferential-attachment}, di cui verranno presentati degli esempi più avanti. 
 
 \subsection{Modello di Steger-Wormald}
 \label{subsec:steger}
-Nella teoria dei grafi, un grafo è detto \textit{regolare di grado} $d$ quando tutti i suoi vertici hanno lo stesso grado, ossia lo stesso numero di archi incidenti., pari a $d$ Un grafo regolare random è un grafo selezionato da $\mathcal{G}_{n,r}$, che denota lo spazio di probabilità di tutti i possibili grafi $r$-regolari di $n$ vertici, in cui $3\leq r < n$ e $nr$ è pari. In questo spazio ogni grafo $d$-regolare di $n$ nodi ha la stessa probabilità $\frac{1}{|\mathcal{G}_{n,r}|}$ di essere generato. Si tratta quindi di grafi random, le cui caratteristiche sono tuttavia significativamente diverse dal caso generale a causa del vincolo di regolarità.
+Nella teoria dei grafi, un grafo è detto \textit{regolare di grado} $d$ quando tutti i suoi vertici hanno lo stesso grado, ossia lo stesso numero di archi incidenti. Se tale grado comune è uguale a $d$, il grafo è detto $d$-regolare. Un grafo regolare casuale è un grafo selezionato da $\mathcal{G}_{n,r}$, lo spazio di probabilità di tutti i possibili grafi $r$-regolari di $n$ vertici, in cui $3\leq r < n$ e $nr$ è pari. In questo spazio ogni grafo $d$-regolare di $n$ nodi ha la stessa probabilità $\frac{1}{|\mathcal{G}_{n,r}|}$ di essere generato. Si tratta quindi di grafi random, le cui caratteristiche sono tuttavia significativamente diverse dal caso generale a causa del vincolo di regolarità.
 
-Dal momento che la maggior parte dei grafi random (che possono essere generati ad esempio mediante il modello precedentemente esposto nella Sottosezione \ref{subsec:er}) non sono regolari, l'implementazione di un algoritmo imparziale per la generazione di grafi regolari casuali non è così scontata. 
+Dal momento che la maggior parte dei grafi random (che possono essere generati ad esempio mediante il modello di Erdős–Rényi precedentemente esposto nella Sottosezione \ref{subsec:er}) non sono regolari, l'implementazione di un algoritmo imparziale per la generazione di grafi regolari casuali non è così scontata. 
 
-Un modello tipicamente utilizzato per la generazione di grafi $d$-regolari con $d$ piccolo è il cosiddetto \textit{pairing model}. Tale modello si basa sulla definizione di $n$ insiemi, uno per ogni vertice del grafo da generare, contenenti ciascuno $d$ elementi, tanti quanti il numero di archi che devono incidere ogni nodo. La costruzione del grafo avviene quindi selezionando iterativamente due insiemi $i$ e $j$, con $i \neq j$, aggiungendo al grafo l'arco $(i,j)$ e rimuovendo dai corrispettivi insiemi un elemento ciascuno. 
+Un modello tipicamente utilizzato per la generazione di grafi $d$-regolari con $d$ piccolo è il cosiddetto \textit{pairing model}. Tale modello si basa sulla definizione di $n$ insiemi, uno per ogni vertice del grafo da generare, contenenti ciascuno $d$ elementi, tanti quanti il numero di archi che devono incidere ogni nodo. La costruzione del grafo avviene quindi selezionando iterativamente due insiemi $i$ e $j$, con $i \neq j$ e per cui non esiste già un arco nel grafo che collega i due nodi corrispondenti, aggiungendo al grafo l'arco $(i,j)$ e rimuovendo dai corrispettivi insiemi un elemento ciascuno. 
 
-In questo lavoro la generazione dei grafi regolari random è stata implementata utilizzando una versione ottimizzata del modello ad accoppiamento, proposta nel 1999 dai matematici Angelika Steger e Nick Wormald \cite{steger_wormald_1999}. Lo pseudo-codice dell'algoritmo utilizzato nel metodo proposto da questi ultimi è riportato in Algoritmo \ref{alg:rrg}. Alcuni esempi di grafi regolari random generati mediante il modello di Steger-Wormald sono riportati in Figura \ref{fig:rrges}.
+Questo modello è molto intuitivo ma viene solitamente utilizzato nella generazione di istanze di grafi dove $d$ è molto piccolo, come già accennato in precedenza. Si può dimostrare infatti che la complessità computazionale dell'algoritmo è esponenziale nella grandezza di $d$, dell'ordine di $nde^{(d^2-1)/4}$ \cite{steger_wormald_1999} per valori di $d$ fino a $n^{\frac{1}{3}}$.
+
+In questo lavoro la generazione dei grafi regolari random è stata quindi implementata utilizzando una versione ottimizzata del modello ad accoppiamento, proposta nel 1999 dai matematici Angelika Steger e Nick Wormald \cite{steger_wormald_1999}. Lo pseudo-codice dell'algoritmo utilizzato nel metodo proposto da questi ultimi è riportato in Algoritmo \ref{alg:rrg}. Alcuni esempi di grafi regolari random generati mediante il modello di Steger-Wormald sono riportati in Figura \ref{fig:rrges}.
 
 \begin{figure}[h!]
      \centering
-     \begin{subfigure}[b]{0.25\textwidth}
+     \begin{subfigure}[b]{0.29\textwidth}
          \includegraphics[width=\columnwidth]{images/rrges-1.eps}
      \end{subfigure}
-     \hspace{0.8em}
-     \begin{subfigure}[b]{0.25\textwidth}
+     \hspace{0em}
+     \begin{subfigure}[b]{0.29\textwidth}
          \includegraphics[width=\columnwidth]{images/rrges0.eps}
      \end{subfigure}
-     \hspace{0.8em}
-     \begin{subfigure}[b]{0.25\textwidth}
+     \hspace{0em}
+     \begin{subfigure}[b]{0.29\textwidth}
          \includegraphics[width=\columnwidth]{images/rrges1.eps}
      \end{subfigure}
-        \caption{Diversi grafi regolari di dimensione 10 generati utilizzando il metodo \texttt{random\_regular\_graph(d, n)} della libreria NetworkX con $d$ pari a, da sinistra verso destra,  2,3 e 4}
+        \caption{Diversi grafi regolari di dimensione 10 generati utilizzando il metodo \texttt{random\_regular\_graph(d, n)} della libreria NetworkX con $d$ pari a, da sinistra verso destra,  $2$,$3$ e $4$}
         \label{fig:rrges}
 \end{figure}
 
 Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi è\\
 \texttt{random\_regular\_graph(d, n, seed)}, che restituisce un'istanza di grafo regolare di dimensione \texttt{n} in cui tutti i nodi hanno grado \texttt{d}. Il parametro \texttt{seed} anche in questo caso regola il comportamento pseudo-casuale della generazione, permettendo la replicabilità dell'esperimento.
 
-\newpage
 \begin{algorithm}
 \SetKwRepeat{Do}{do}{while}
 \SetAlgoLined

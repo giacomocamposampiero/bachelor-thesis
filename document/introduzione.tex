@@ -8,26 +8,11 @@ complessi, che ha trovato grande applicazione in moltissimi ambiti, non ultimo q
 Una delle diverse branche che compongono la ricerca operativa è l'ottimizzazione. 
 Quest'ultima si occupa principalmente di problemi che comportano la minimizzazione o la massimizzazione di una funzione, detta funzione
 obbiettivo, sottoposta ad un dato insieme di vincoli. 
-Un problema di ottimizzazione può essere formulato come 
-\begin{align}
-	\label{eq:opt}
-	\begin{array}{l}
-      \text{min(\textit{or} max)}f(x)\\
-      S	\\
-      x \in D
-    \end{array}
-\end{align}
-dove $f(x)$ è una funzione a valori reali nelle variabili $x$, $D$ è il dominio di x e $S$ un insieme finito di vincoli. In generale,  
-$x$ è una tupla ($x_1,...,x_n$) e $D$ è un prodotto cartesiano $D_1 \times ... \times D_n$, e vale $x_j \, \in \, D_j$. 
 
-Un problema nella forma (\ref{eq:opt}) è intrattabile, ovvero non esistono algoritmi efficienti (o non esiste proprio
-alcun algoritmo) per la sua risoluzione. Si rende quindi necessario considerare dei casi particolari di questa formulazione, i quali 
-possiedono determinate proprietà che possono essere sfruttate nella definizione di algoritmi ad-hoc.
-\newpage
+In questo lavoro è stata studiata una particolare classe di problemi di ottimizzazione, il \textit{vertex cover} minimo, anche detto problema di copertura dei vertici. In particolare, ne è stato analizzato l'andamento della complessità di risoluzione per alcune tipologie di grafi, generati casualmente, al variare dei parametri utilizzati nella generazione stessa.
 
-Nelle successive sezioni di questa introduzione verranno brevemente esposti alcuni concetti teorici rilevanti nel contesto degli 
-esperimenti svolti. La trattazione proseguirà poi con l'esposizione dell'impostazione utilizzata nello svolgimento degli
-esperimenti, dei risultati ottenuti e di un conciso commento riguardo questi ultimi. 
+La stesura di questo elaborato è stata articolata in quattro capitoli. Inizialmente, verranno brevemente esposti alcuni concetti teorici rilevanti nel contesto degli 
+esperimenti svolti. La trattazione proseguirà poi con la presentazione dell'impostazione utilizzata nello svolgimento degli
+esperimenti e dei risultati ottenuti. Infine, saranno tratte alcune conclusioni riguardo il lavoro svolto. 
 
-\noindent
-Tutto il codice sviluppato in relazione a questo elaborato è stato scritto in Python \cite{python}, linguaggio di programmazione \textit{general-purpose} di alto livello,  ed è liberamente consultabile online \cite{repository}.
+Tutto il codice sviluppato in relazione a questo lavoro è stato scritto in Python \cite{python}, linguaggio di programmazione \textit{general-purpose} di alto livello che ha permesso di gestire ognuna delle diverse fasi in cui si è articolato lo svolgimento degli esperimenti, dalla generazione dei grafi all'elaborazione grafica dei risultati. Il codice sorgente, così come tutti i risultati delle elaborazioni, sono liberamente consultabili online nella \textit{repository} utilizzata per gestire il controllo di versione del progetto \cite{repository}.

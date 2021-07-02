@@ -47,9 +47,9 @@ In Figura \ref{fig:gnp3d} viene infine riportato un grafico tridimensionale rias
 
 
 \section{Risultati per grafi regolari}
-La seconda categoria di grafi per cui è stata analizzato l'andamento della complessità computazionale è stata quella dei grafi regolari, generati secondo il modello di Steger-Wormald, già descritto nella Sottosezione \ref{subsec:steger}).
+La seconda categoria di grafi per cui è stato studiato l'andamento della complessità computazionale è stata quella dei grafi regolari, generati secondo il modello di Steger-Wormald già descritto nella Sottosezione \ref{subsec:steger}.
 
-In questo caso, una prima analisi è stata fatta studiando l'andamento della complessità computazionale del problema di vertex cover associato al variare del numero del grado di ciascun nodo $d$, per ognuna delle dimensioni di grafo specificate. Il grafico risultante da questa analisi è riportato in Figura \ref{fig:rrgd}. A differenza dei grafi $G(n,p)$, in cui a parità di parametri di generazione $n$ e $p$ il tempo di risoluzione dimostrava oscillazioni quasi trascurabili per i diversi semi utilizzati, per questa tipologia di grafi le oscillazioni tra grafi generati a partire da semi diversi risultano essere molto marcate. Per questa ragione è stato considerato per ognuna delle coppie $(n,d)$ il valore medio del tempo di risoluzione. 
+In questo caso, una prima analisi è stata fatta sull'andamento della complessità computazionale del problema di vertex cover associato al variare del grado di ciascun nodo $d$, per ognuna delle dimensioni di grafo specificate. Il grafico risultante da questa analisi è riportato in Figura \ref{fig:rrgd}. A differenza dei grafi $G(n,p)$, in cui a parità di parametri di generazione $n$ e $p$ il tempo di risoluzione dimostrava oscillazioni quasi trascurabili per i diversi semi utilizzati nella gestione del comportamento casuale, nel caso dei grafi regolare le oscillazioni tra istanze generate a partire da semi diversi sono risultate essere molto marcate. Per questa ragione è stato considerato per ognuna delle coppie $(n,d)$ il valore medio del tempo di risoluzione. 
 \vspace{-1cm}
 \begin{figure}[h!]
      \centering
@@ -58,9 +58,9 @@ In questo caso, una prima analisi è stata fatta studiando l'andamento della com
         \label{fig:rrgd}
 \end{figure}
 
-In questo caso risulta molto difficile, se non impossibile, riuscire a trovare un pattern ricorrente nei comportamenti delle diverse istanze. Una debole ipotesi sulla correlazione tra dimensione del grafo e complessità del problema potrebbe essere avanzata per questa particolare tipologia di grafi, sebbene esistano due valori di dimensione ($n=200$ e $n=250$) che si comportano esattamente al contrario di quanto previsto. Questa anomalia potrebbe essere tuttavia dovuta al fatto che i due grafi si trovano in una zona di confine tra complessità, in cui la forma delle particolari istanze influenza fortemente l'esito nella risoluzione del problema.
+In questo caso risulta molto difficile, se non impossibile, riuscire a trovare un pattern ricorrente nei comportamenti delle diverse istanze. Una debole ipotesi sulla correlazione tra dimensione del grafo e complessità del problema potrebbe essere avanzata per questa particolare tipologia di grafi, sebbene esistano due valori di dimensione ($n=200$ e $n=250$) che si comportano esattamente al contrario di quanto previsto. Questa anomalia potrebbe essere tuttavia dovuta al fatto che i due valori di dimensione si trovano in una zona di confine, in cui il comportamento della complessità del problema è instabile e viene fortemente influenzato dalla forma delle specifiche istanze.
 
-Una proprietà comune alle istanze di tutte le dimensioni (escluse quelle di dimensione più piccola generate per $n=100$) sembra poi essere un'inversione di tendenza della complessità del problema (sia in meglio che in peggio) in una finestra di valori del parametro $d$ che compresa tra 3 e 10. Questo fenomeno fa si che istanze di grande dimensione che per tutti gli altri valori di $d$ risultano perennemente irrisolvibili diventino molto facili e, al contrario, istanze di piccola dimensione che risultano essere sempre risolte con semplicità vadano in time limit. Una rappresentazione tridimensionale dell'andamento della complessità al variare dei due parametri in contemporanea, che permette di apprezzare meglio questo fenomeno, è riportata in Figura \ref{fig:rrg3d}.
+Una proprietà comune alle istanze di tutte le dimensioni (escluse quelle di dimensione più piccola generate per $n=100$) sembra poi essere un'inversione di tendenza della complessità del problema (sia in meglio che in peggio) in una finestra di valori del parametro $d$ compresa tra 3 e 10. Questo fenomeno fa si che istanze di grande dimensione che per tutti gli altri valori di $d$ risultano perennemente irrisolvibili diventino molto facili e, al contrario, istanze di piccola dimensione che risultano essere sempre risolte in tempi molto piccoli vadano invece in time limit. Una rappresentazione tridimensionale dell'andamento della complessità al variare dei due parametri in contemporanea, che permette di apprezzare meglio questo fenomeno, è riportata in Figura \ref{fig:rrg3d}.
 
 \begin{figure}[h!]
      \centering
@@ -75,19 +75,22 @@ Anche in questo caso, dare una spiegazione a questo fenomeno risulta molto compl
 
 \newpage
 \section{Risultati per grafi di Barabási-Albert}
-L'ultima categoria di grafi di cui sono stati analizzati i risultati sperimentali sono stati quelli generati mediante il modello di Barabási-Albert, già trattato nella Sottosezione \ref{subsec:barab}. 
+L'ultima categoria di grafi di cui sono stati studiati i risultati sperimentali sono stati quelli generati mediante il modello di Barabási-Albert, già trattato nella Sottosezione \ref{subsec:barab}. 
 
-Per prima cosa è stata analizzata la correlazione tra dimensione del grafo e complessità nella risoluzione del problema, estrapolando una curva per ognuno degli insiemi di misurazioni legate ad uno specifico valore del parametro $d$.  L'andamento ottenuto si è dimostrato essere marcatamente esponenziale (crescente), ed è stato possibile anche in questo caso applicare il metodo della regressione lineare al fine di ottenere delle curve in grado di approssimare sufficientemente bene l'andamento del tempo impiegato dal risolutore ad ottenere una soluzione.Il grafico che è risultato da questo studio dei risultati è riportato in Figura \ref{fig:bag1}.
-
+Per prima cosa è stata analizzata la correlazione tra dimensione del grafo e complessità nella risoluzione del problema, estrapolando una curva per ognuno degli insiemi di misurazioni legate ad uno specifico valore del parametro $d$.  L'andamento ottenuto si è dimostrato essere marcatamente esponenziale (crescente). È stato possibile anche in questo caso applicare il metodo della regressione lineare al fine di ottenere delle curve in grado di approssimare sufficientemente bene l'andamento del tempo impiegato dal risolutore ad ottenere una soluzione.Il grafico che è risultato da questo studio dei risultati è riportato in Figura \ref{fig:bag1}.
+\vspace{-0.5cm}  
 \begin{figure}[h!]
      \centering
        \includegraphics[scale=0.5]{images/bag.eps}
-       \caption{Andamento del tempo impiegato da CPLEX per risolvere l'istanza di problema (ordinata) in funzione della grandezza del grafo (ascissa), per diversi valori del parametro $d$.}      
+       \vspace{-0.5cm}  
+       \caption{Andamento del tempo impiegato da CPLEX per risolvere l'istanza di problema (ordinata) in funzione della grandezza del grafo (ascissa), per diversi valori del parametro $m$, corrispondente al numero di archi creati tra ogni nuovo nodo ed i nodi esistenti nel processo di generazione.}      
+      
         \label{fig:bag1}
 \end{figure}
 
-In seconda istanza è stato analizzato il contributo del parametro $m$, mantenendo questa volta costante il numero dei nodi appartenenti al grafo. Come si può evincere dai grafici riportati in Figura \ref{fig:bagma}, il parametro $m$ sembra avere un impatto marginale sulla complessità del problema, o almeno non paragonabile a quello determinato dalla dimensione del problema stesso. 
+In seconda istanza è stato analizzato il contributo del parametro $m$, mantenendo questa volta costante il numero dei nodi del grafo. Come si può evincere dai grafici riportati in Figura \ref{fig:bagma}, il parametro $m$ sembra avere un impatto marginale sulla complessità del problema, o almeno non paragonabile a quello determinato dalla dimensione del problema stesso. Valori anche grandi di $m$ infatti non causano mai da soli la divergenza delle tempo di risoluzione, ma al limite la favoriscono nel caso di grafi dalla dimensione marcata. 
 
+È inoltre interessante notare come, per il valore $m=30$, il tempo di risoluzione sia mediamente inferiore (per le istanze di problema che non vanno in time limit) rispetto al caso $m=20$, in netto contrasto con l'andamento strettamente crescente evidenziato fino a quel momento. Ciò potrebbe essere dovuto ad una particolare configurazione di forma assunta dai grafi per tale valore di $m$ o potrebbe trattarsi invece di una vera e propria inversione di tendenza. In entrambi i casi, uno studio per un insieme molto più esteso di valori del parametro $m$ sarebbe necessario.
 
 \begin{figure}[h!]
      \centering
@@ -123,12 +126,12 @@ In seconda istanza è stato analizzato il contributo del parametro $m$, mantenen
         \label{fig:bagma}
 \end{figure}
 
-
-
-Infine, anche in questo caso è stata elaborata un'immagine tridimensionale per visualizzare l'andamento della complessità del problema di vertex cover associato all'istanza di grafo al variare di entrambi i parametri di generazione $m$ e $n$.
+Infine, anche per i risultati ottenuti dall'analisi di grafi di Barabási-Albert è stata elaborata un'immagine tridimensionale per visualizzare l'andamento della complessità del problema di vertex cover associato all'istanza di grafo al variare di entrambi i parametri di generazione $m$ e $n$.
+  \vspace{-1cm}  
 \begin{figure}[h!]
      \centering
-       \includegraphics[scale=0.5]{images/bag-3d.eps}
-       \caption{Rappresentazione tridimensionale dell'andamento della complessità del problema di vertex cover per grafi regolari al variare dei parametri $d$ ed $n$. Anche in questo caso colori più caldi indicano una complessità maggiore, ed il colore rosso scuro è generalmente sinonimo di raggiungimento del time limit imposto al risolutore}      
+       \includegraphics[scale=0.4]{images/bag-3d.eps}
+       \vspace{-0.8cm}  
+       \caption{Rappresentazione tridimensionale dell'andamento della complessità del problema di vertex cover per grafi di Barabási-Albert al variare dei parametri $m$ ed $n$. Anche in questo caso colori più caldi indicano una complessità maggiore, ed il colore rosso scuro è generalmente sinonimo di raggiungimento del time limit imposto al risolutore.}      
         \label{fig:bag3d}
 \end{figure}

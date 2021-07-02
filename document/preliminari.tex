@@ -1,6 +1,25 @@
+In questo capitolo sono stati raccolti alcuni concetti teorici di ottimizzazione legati al lavoro svolto. È stata come prima cosa data una definizione formale al concetto di problema di ottimizzazione. Si è proseguito poi con un approfondimento sulla programmazione lineare intera e su due algoritmi utilizzati nella risoluzione di problemi di ottimizzazione, \textit{branch-and-bound} e \textit{branch-and-cut}. Infine, è stata esposta una definizione formale al problema di ottimizzazione studiato in questo lavoro, il problema di copertura dei vertici minimo. Molte delle definizioni in questo capitolo sono ispirate alle dispense del corso di \textsl{Modelli e Software per l'Ottimizzazione Discreta}, tenuto dal professore Domenico Salvagnin \cite{salvagnin1}\cite{salvagnin2}.
+
+\section{Problema di ottimizzazione}
+Un problema di ottimizzazione può essere formulato come 
+\begin{align}
+	\label{eq:opt}
+	\begin{array}{l}
+      \text{min(\textit{or} max)}f(x)\\
+      S	\\
+      x \in D
+    \end{array}
+\end{align}
+dove $f(x)$ è una funzione a valori reali nelle variabili $x$, $D$ è il dominio di $x$ e $S$ un insieme finito di vincoli. In generale,  
+$x$ è una tupla ($x_1,...,x_n$) e $D$ è un prodotto cartesiano $D_1 \times ... \times D_n$, e vale $x_j \, \in \, D_j$. 
+
+Un problema nella forma (\ref{eq:opt}) è intrattabile, ovvero non esistono algoritmi efficienti (o non esiste proprio
+alcun algoritmo) per la sua risoluzione. Si rende quindi necessario considerare dei casi particolari di questa formulazione, i quali 
+possiedono determinate proprietà che possono essere sfruttate nella definizione di algoritmi risolutivi ad-hoc.
+
+\newpage
 \section{Programmazione lineare intera}
-Uno dei casi particolari della formulazione generale (\ref{eq:opt}) a cui si è precedentemente fatto riferimento viene trattato dalla 
-programmazione lineare intera.
+Uno dei casi particolari della formulazione generale (\ref{eq:opt}) a cui si è precedentemente fatto riferimento viene trattato dalla programmazione lineare intera.
 Un problema di programmazione lineare intera consiste nella minimizzazione (o massimizzazione) di una funzione lineare soggetta ad un 
 numero finito di vincoli lineari, con in aggiunta il vincolo che alcune delle variabili del problema debbano assumere valori interi. 
 In generale, il problema può quindi essere riformulato come
@@ -17,13 +36,12 @@ Se $J=N$ si parla di programmazione lineare intera pura, altrimenti di programma
 \textit{Mixed Integer Programming}).
 
 La programmazione lineare intera restringe quindi notevolmente il tipo di vincoli a disposizione nel
-processo di formalizzazione matematica del problema, determinando una maggior difficoltà nella modellazione del problema.
+processo di formalizzazione matematica del problema, determinando una maggior difficoltà in fase di modellazione.
 Tuttavia, questo non comporta eccessive restrizioni, almeno per la MIP, sulle tipologie di problemi che possono essere formulati 
 secondo questo paradigma. Alcuni esempi classici di problemi risolvibili mediante MIP sono \textit{knapsack}, problemi di 
 \textit{scheduling}, \textit{facility location} e, naturalmente, \textit{minimum vertex cover}.
-
 Inoltre, l'introduzione dei vincoli di linearità ed interezza comporta notevoli vantaggi nella definizione ed
-implementazione di algoritmi risolutivi. 
+implementazione di algoritmi risolutivi, alcuni dei quali verranno descritti più nel dettaglio nelle seguenti sezioni.
 
 \subsection{Algoritmo Branch and Bound}
 L'algoritmo branch-and-bound (B\&B) è un algoritmo di ottimizzazione generica basato sull'enumerazione dell'insieme delle soluzioni
@@ -31,7 +49,7 @@ ammissibili di un problema di ottimizzazione combinatoria, introdotto nel 1960 d
 
 Questo algoritmo permette di gestire il problema dell'esplosione combinatoria mediante il \textit{pruning} di intere porzioni dello spazio delle soluzioni, che può essere effettuato quando si riesce a dimostrare che queste ultime non contengono soluzioni migliori di 
 quelle note. Branch-and-bound implementa inoltre una strategia \textit{divide and conquer}, che permette di partizionare lo spazio di 
-ricerca e di risolvere ognuna di esse separatamente. Viene riportata di seguito una breve descrizione dell'algoritmo.
+ricerca e di risolvere ognuna delle partizioni ottenute separatamente. Viene riportata di seguito una breve descrizione dell'algoritmo.
 
 Sia $F$ l'insieme delle soluzioni ammissibili di un problema di minimizzazione (simmetrico nel caso della massimizzazione, a meno di un 
 cambio di segno della funzione obiettivo), $c \, : \, F \, \rightarrow \mathbb{R} $ la funzione obiettivo e $\Bar{x} \in F$ una 
@@ -73,12 +91,13 @@ rappresentata dall'attuale \textit{incumbent} è la soluzione ottima al problema
 
 Quella appena descritta rappresenta una formulazione generica dell'algoritmo B\&B. Questa formulazione può essere
 tuttavia specializzata nella risoluzione di problemi MIP con relativa semplicità, agendo sulle condizioni che regolano 
-\textit{bounding} e \textit{branching}. Nel primo caso la scelta più diffusa consiste nel rilassamento del vincolo di interezza.
+\textit{bounding} e \textit{branching}. Per quanto riguarda il primo, la scelta più diffusa consiste nel rilassamento del vincolo di interezza.
 Se la soluzione del rilassamento non è intera, una possibile separazione in sotto-problemi può essere fatta considerando la partizione
 \begin{align*}
 x_j \leq \floor*{x_j^*} \vee x_j \geq \ceil*{x_j^*}
 \end{align*}
-Per costruzione, ogni soluzione trovata dall'algoritmo è migliore dell'incumbent e, di conseguenza, l'andamento dell'
+\indent
+Infine, è importante notare come, per costruzione, ogni soluzione trovata dall'algoritmo è migliore dell'incumbent e, di conseguenza, l'andamento dell'
 upper bound del problema è strettamente decrescente. I lower bound dei singoli sotto-problemi non hanno invece, al contrario degli 
 upper bound, valenza globale. Derivare un lower bound globale è comunque possibile, considerando il minimo tra tutti
 i lower bound dei sotto-problemi ancora aperti. Avendo a disposizione in ogni momento entrambi i bound del problema, 
@@ -89,10 +108,10 @@ L'algoritmo \textit{branch-and-cut} (B\&C) rappresenta una versione migliorata d
 da M. Padberg e G. Rinaldi \cite{PADBERG19871} e ideata appositamente per la risoluzione di problemi MIP. 
 
 L'algoritmo branch-and-cut è un ibrido tra branch-and-bound, trattato in precedenza, e un algoritmo
-a piani di taglio puro, in cui la soluzione è ottenuta mediante raffinazioni successive dello spazio delle soluzione mediante la
+a piani di taglio puro, in cui la soluzione è ottenuta mediante raffinazioni successive dello spazio delle soluzioni mediante la
 progressiva aggiunti di vincoli.
-Le due tecniche si rafforzano a vicenda, contribuendo al raggiungimento di prestazioni complessive superiori a quelle
-che otterrebbe ciascuna delle due singolarmente.
+Queste due tecniche si rafforzano a vicenda, contribuendo al raggiungimento di prestazioni complessive superiori a quelle
+che otterrebbe ciascuna di esse singolarmente.
 
 L'idea alla base di questo algoritmo è quella di "rafforzare", per ogni sotto-problema, la formulazione associata al suo rilassamento
 lineare mediante la generazione di piani di taglio. I vantaggi a livello risolutivo sono diversi, tra cui una maggior probabilità di
@@ -109,12 +128,14 @@ Il problema di \textit{vertex cover} (anche detto di \textsl{copertura dei verti
 che consiste nel trovare il minimo vertex cover di un grafo, ossia il più piccolo insieme di nodi del grafo tale che almeno uno dei due 
 vertici di ogni arco sia contenuto in questo insieme. Trovare il vertex cover minimo di un generico grafo è un problema 
 \textsl{NP-completo}, ovvero non esistono algoritmi in grado di trovarne una soluzione in un tempo polinomiale. In questo elaborato è
-stata considerata la formulazione indiretta e \textit{unweighted} del problema, in cui gli archi non sono direzionati
-hanno tutti peso uguale e pari ad $1$.
+stata considerata la formulazione indiretta e \textit{unweighted} del problema, in cui gli archi non sono direzionati e in cui i nodi del grafo hanno tutti peso uguale e pari ad $1$.
 
-Formalmente, il vertex cover $V'$ di un grafo $G=(V,E)$ può essere definito come un sotto-insieme di $V$ tale che
-$uv \in E \Rightarrow u \in V' \vee v \in V'$. Definita $\tau=\mid V' \mid$ la cardinalità del vertex cover, il vertex cover minimo può
-essere definito come
+Formalmente, il vertex cover $V'$ di un grafo $G=(V,E)$ può essere definito come un sotto-insieme dei vertici del grafo $V$ tale che
+\begin{align*}
+uv \in E \Rightarrow u \in V' \vee v \in V'
+\end{align*}
+Definita $\tau=\mid V' \mid$ la cardinalità del vertex cover, il vertex cover minimo può essere definito formalmente come
+\vspace{-0.5cm}
 \begin{align*}
 V_{min}' \, = \, \arg\min_{\tau} \, V' 
 \end{align*} 
