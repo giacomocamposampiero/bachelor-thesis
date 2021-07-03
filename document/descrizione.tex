@@ -101,7 +101,7 @@ In questo lavoro la generazione dei grafi regolari random è stata quindi implem
      \begin{subfigure}[b]{0.29\textwidth}
          \includegraphics[width=\columnwidth]{images/rrges1.eps}
      \end{subfigure}
-        \caption{Diversi grafi regolari di dimensione 10 generati utilizzando il metodo \texttt{random\_regular\_graph(d, n)} della libreria NetworkX con $d$ pari a, da sinistra verso destra,  $2$,$3$ e $4$}
+        \caption{Diversi grafi regolari di dimensione 10 generati utilizzando il metodo \texttt{random\_regular\_graph(d, n)} della libreria NetworkX con $d$ pari a, da sinistra verso destra,  $2$,$3$ e $4$.}
         \label{fig:rrges}
 \end{figure}
 
@@ -111,14 +111,15 @@ Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi 
 \begin{algorithm}
 \SetKwRepeat{Do}{do}{while}
 \SetAlgoLined
+\KwIn{numero di nodi $n$ e numero di archi incidenti per ogni nodo $d$}
 \Do{G {\upshape non è $d$-regolare}}{
-	\KwIn{numero di nodi $n$ e numero di archi incidenti per ogni nodo $d$}
 	 inizializza un grafo $G$ con $n$ nodi e nessun vertice\;
 	 inizializza un insieme $S$ di coppie di nodi non adiacenti e il cui grado è al massimo $d-1$\;
 	 \Do{S {\upshape non è vuoto}}{
 	 	assegna ad ogni coppia $(u,v)$ in $S$ una probabilità di essere scelta proporzionale a $(d-d(u))(d-d(v))$\;
 	 	scegli una coppia $(u,v)$ da $S$ sulla base delle probabilità calcolate\;
-	 	aggiungi l'arco ${u,v}$ a $g$\;
+	 	aggiungi l'arco $(u,v)$ a $g$\;
+	 	rimuovi la coppia $u,v$ da S\;
 	 }
  }
  \Return{$G$}
@@ -130,7 +131,7 @@ Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi 
 \subsection{Modello di Watts-Strogatz}
 Il modello di Watts-Strogatz è un modello per la generazione di grafi casuali presentato nel 1998 da Duncan J. Watts e Steven Strogatz \cite{watts_collective_1998}, la cui caratteristica principale risiede nel possedere proprietà \textit{small-world}. 
 
-Il concetto di small-world venne introdotto per la prima volta nel 1967 dallo psicologo statunitense Stanley Milgram nella sua serie di esperimenti mirata ad esaminare la lunghezza media dei percorsi delle reti sociali tra residenti negli Stati Uniti (popolarmente conosciuti con il nome di "\textit{six degrees of separation}"). In questi esperimenti Milgram ipotizzò l'aderenza di questi contesti sociali ad un modello a "\textit{piccolo mondo}", composto da una rete di collegamenti tra persone relativamente breve \cite{milgram_small-world_1967}.  
+Il concetto di small-world venne introdotto per la prima volta nel 1967 dallo psicologo statunitense Stanley Milgram nella sua serie di esperimenti mirata ad esaminare la lunghezza media dei percorsi delle reti sociali tra residenti negli Stati Uniti (popolarmente conosciuti con il nome di "\textit{six degrees of separation}") \cite{milgram_small-world_1967}. In questi esperimenti Milgram ipotizzò l'aderenza dei contesti sociali da lui analizzati ad un modello a "\textit{piccolo mondo}", composto da una rete di collegamenti tra persone relativamente breve.  
 
 Watts e Strogatz, partendo dalle osservazioni di Milgram, verificarono che diversi esempi di grafi che rappresentano contesti reali, tra cui il sistema nervoso del verme nematode fasmidario \textit{Caenorhabditis elegans}, la rete elettrica degli Stati Uniti occidentali e un grafo rappresentante le collaborazioni tra diversi attori di film, mostrano alcune proprietà comuni molto importanti. Sulla base di queste osservazioni proposero quindi un modello di rete denominato \textit{small-world network}, caratterizzato da:
 \begin{itemize}
@@ -138,34 +139,38 @@ Watts e Strogatz, partendo dalle osservazioni di Milgram, verificarono che diver
 \item tendenza al raggruppamento in cluster all'interno della rete, che si traduce in regolarità e località del grafo
 \end{itemize}
 
-Nessuno dei principali metodi di generazione di grafi casuali garantiva tuttavia la generazione di grafi con tali caratteristiche. I grafi $G(n,p)$ infatti presentano caratteristiche simili a reti small-world, ma non hanno un alto coefficiente di clusterizzazione. Al contrario, i grafi regolari presentano un alto coefficiente di clusterizzazione ma lunghezza media dei cammini minimi generalmente elevata. Per questa ragione, Watts e Strogatz proposero un nuovo modello di generazione di grafi casuali,  basato su modifiche iterative di un grafo regolare ad anello mediante il \textit{rewiring} di archi del grafo, controllato dal parametro $p$ (che modula la regolarità o, viceversa, la casualità del grafo prodotto, come mostrato in Figura \ref{fig:incwsg}). Queste modifiche consentono, per opportuni valori di $p$,  la conservazione di un alto livello di clustering locale ma, allo stesso tempo, abbattono la lunghezza del cammino minimo tra nodi del grafo mediante l'aggiunta di collegamenti casuali.  Un andamento di queste due proprietà al variare del valore di $p$ è riportato in Figura \ref{fig:lcwsg}. Lo pseudo-codice di questo metodo è riportato in Algoritmo \ref{alg:wsg}.
+Nessuno dei principali metodi di generazione di grafi casuali garantiva tuttavia la generazione di grafi con tali caratteristiche. I grafi $G(n,p)$ infatti presentano caratteristiche simili a reti small-world, ma non hanno un alto coefficiente di clusterizzazione. Al contrario, i grafi regolari presentano un alto coefficiente di clusterizzazione ma lunghezza media dei cammini minimi generalmente elevata. 
+
+Per questa ragione, Watts e Strogatz proposero un nuovo modello di generazione di grafi casuali,  basato su modifiche iterative di un grafo regolare ad anello mediante un \textit{rewiring} di archi del grafo controllato dal parametro $p$ (che modula la regolarità o, viceversa, la casualità del grafo prodotto, come mostrato in Figura \ref{fig:incwsg}). Queste modifiche consentono, per opportuni valori di $p$,  la conservazione di un alto livello di clustering locale ma, allo stesso tempo, abbattono la lunghezza del cammino minimo tra nodi del grafo mediante l'aggiunta di collegamenti casuali.  Un andamento di queste due proprietà al variare del valore di $p$ è riportato in Figura \ref{fig:lcwsg}. Lo pseudo-codice di questo metodo è riportato in Algoritmo \ref{alg:wsg}.
+
 
 \begin{figure}[h!]
      \centering
      \begin{subfigure}[t]{7cm}
          \includegraphics[width=\columnwidth]{images/wsgcl.eps}
-         \caption{Clustering globale $C$ e lunghezza media del cammino minimo tra nodi $L$ al variare della probabilità di rewiring $p$}
+         \caption{Clustering globale $C$ e lunghezza media del cammino minimo tra nodi $L$ al variare della probabilità di rewiring $p$.}
           \label{fig:lcwsg}
      \end{subfigure}
      \hspace{0.8em}
      \begin{subfigure}[t]{7cm}
      	\raisebox{0.9cm}{
          \includegraphics[width=\columnwidth]{images/wsginc.eps}}
-         \caption{Regolarità del grafo in funzione della probabilità di rewiring $p$}
+         \caption{Regolarità del grafo in funzione della probabilità di rewiring $p$.}
           \label{fig:incwsg}
      \end{subfigure}
-        \caption{Rappresentazioni grafiche che evidenziano caratteristiche proprie del modello di generazione proposto da Watts-Strogatz \cite{watts_collective_1998}}
+        \caption{Rappresentazioni grafiche che evidenziano caratteristiche proprie del modello di generazione proposto da Watts-Strogatz \cite{watts_collective_1998}.}
 \end{figure}
 
+
 Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi è \linebreak
-\texttt{watts\_strogatz\_graph(n, k, p, seed)}, che restituisce un'istanza di grafo Watts-Strogatz di dimensione \texttt{n} i cui nodi sono inizialmente organizzati in una struttura ad anello dove ogni nodo è collegato con i suoi \texttt{k//2+1} vicini sinistri e \texttt{k//2+1} vicini destri ed in cui la probabilità che ciascun nodo sia "ricollegato" con un altro nodo diverso da uno dei suoi vicini attuali è \texttt{p}. Anche in questo caso il parametro \texttt{seed} regola il comportamento casuale della generazione, permettendo così di ottenere la riproducibilità dei risultati.
+\texttt{watts\_strogatz\_graph(n, k, p, seed)}, che restituisce un'istanza di grafo di Watts-Strogatz di dimensione \texttt{n}. I nodi di questo grafo sono inizialmente organizzati in una struttura ad anello in cui ogni nodo è collegato ai suoi \texttt{k//2+1} vicini sinistri e \texttt{k//2+1} vicini destri ed in cui la probabilità che ciascun nodo sia "ricollegato" con un altro nodo diverso da uno dei suoi vicini attuali è \texttt{p}. Anche in questo caso il parametro \texttt{seed} regola il comportamento casuale della generazione, permettendo così di ottenere la riproducibilità dei risultati.
 
 Questo modello di generazione presenta tuttavia diverse limitazioni. La principale tra queste riguarda il grado dei nodi che, a differenza della maggior parte dei grafi che rappresentano modelli reali, denota una varianza media molto bassa tra i nodi di uno stesso grafo. Inoltre, questo modello di generazione implica l'utilizzo di grafi con un numero fisso di nodi e, di conseguenza, non può essere utilizzato nella simulazione di realtà la cui dimensione è variabile nel tempo.
 
 \begin{algorithm}
 \SetAlgoLined
 \KwIn{numero di nodi $n$, numero collegamenti iniziali con i vicini $k$ e probabilità di fare \textit{rewiring} di ciascun arco $p$}
- inizializza un grafo ad anello $G$ con $n$ nodi\;
+ inizializza un grafo ad anello $G$ con $n$ nodi e nessun arco\;
  \ForEach{{\upshape nodo} m {\upshape appartenente al grafo}} {
  	aggiungi un arco tra $m$ e i suoi $k/2$ vicini destri e $k/2$ vicini sinistri\;
  }
@@ -173,7 +178,7 @@ Questo modello di generazione presenta tuttavia diverse limitazioni. La principa
  	$rand$ = numero casuale $\in [0,1]$\;
  	\If{rand $>$ p} {
  		$w$ = nodo diverso da $v$ scelto casualmente con probabilità uniforme\;
- 		$e = (u,w)$\;
+ 		$e = (u,w)$, ossia ricollega l'arco\;
  	}
  }
  \Return{$G$}
@@ -191,46 +196,56 @@ Proprio sulla base di queste osservazioni i fisici Albert-László Barabási e R
 \begin{align*}
 p_i = \frac{k_i}{\sum_{j \in J}k_j}
 \end{align*}
-dove $J$ è l'insieme dei nodi già presenti nel grafo durante l'iterazione in cui viene aggiunto il nodo $i$. Lo pseudo-codice del modello di generazione è riportato in Algoritmo \ref{alg:bag}.
+dove $J$ è l'insieme dei nodi già presenti nel grafo durante l'iterazione in cui viene aggiunto il nuovo nodo e $k_x$ corrisponde al numero di connessioni che incidono il nodo $x$ nella stessa iterazione. Lo pseudo-codice del modello di generazione è riportato in Algoritmo \ref{alg:bag}.
 
-Il modello di Barabási-Albert ha quindi la capacità di generare un grafo con pochi nodi, detti \textit{hub}, che presentano un grado molto elevato se comparato a quello della maggior parte dei restanti nodi del grafo. Un'altra caratteristica molto importante di questo modello è la capacità di generare \textit{scale-free networks}, ovvero grafi per cui la relazione tra numero di nodi e numero di connessioni è di tipo esponenziale negativo. Per questa tipologia di reti la distribuzione dei nodi di diverso grado non è una classica distribuzione a campana, bensì risulta essere la stessa per qualsiasi valore di scala, come riportato in Figura \ref{fig:bagdist}.
+Il modello di Barabási-Albert ha quindi la capacità di generare un grafo con pochi nodi, detti \textit{hub}, che presentano un grado molto elevato se comparato a quello della maggior parte dei restanti nodi del grafo. 
+
+Un'altra caratteristica molto importante dei grafi casuali generati utilizzando questo modello è quella di essere \textit{scale-free networks}, ovvero grafi per cui la relazione tra numero di nodi e numero di connessioni è di tipo esponenziale negativo, e quindi invariante ai cambiamenti di scala. 
+Un confronto tra la distribuzione del grado dei nodi in un grafo $G(n,p)$ e in un grafo \textit{scale-free} è riportato di seguito in Figura \ref{fig:bagdist}. 
 
 \begin{figure}[h!]
      \centering
-       \includegraphics[scale=0.4]{images/bagdist.eps}
-       \caption{Confronto tra la distribuzione del grado dei nodi in un grafo $G(n,p)$ (a sinistra)e in un grafo scale-free (a destra) \cite{costa}}
+       \includegraphics[scale=0.45]{images/bagdist.eps}
+       \caption{Confronto tra la distribuzione del grado dei nodi in un grafo $G(n,p)$ (a sinistra)e in un grafo scale-free (a destra) \cite{costa}.}
         \label{fig:bagdist}
 \end{figure}
 
-Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi è\\
-\texttt{barabasi\_albert\_graph(n, m, seed}, che restituisce un'istanza di grafo Barabási-Albert di dimensione \texttt{n} in cui ogni nuovo nodo viene collegato nel procedimento iterativo a \texttt{m} nodi esistenti. Anche in questo caso il parametro \texttt{seed} regola il comportamento casuale della generazione, agendo in particolare sulla scelta dell'insieme di archi da creare ad ogni iterazione, permettendo così la replicabilità dell'esperimento. 
+A livello pratico, questo significa che confrontando il numero di due tipi di nodi, ad esempio quelli di grado $5$ e $15$, il rapporto tra i due risulta essere pari a
+\begin{align*}
+e^{-a(Nb-Na)}
+\end{align*}
+dove $Na$ e $Nb$ sono rispettivamente il numero di nodi del denominatore e del numeratore mentre $a$ è un parametro del tipo di rete considerato.
 
-Sebbene descriva per certi versi grafi reali, grazie alla sua natura scale-free, il modello di generazione proposto da Barabási ed Albert non riesce a replicare l'alto indice di clustering globale caratteristico di queste reti (cosa che, al contrario, viene ricreata perfettamente dal modello di Watts-Strogatz). Per questo motivo sia il modello di Watts-Strogatz che quello di Barabási-Albert devono essere considerati come parzialmente realistici.
+Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi è\\
+\texttt{barabasi\_albert\_graph(n, m, seed)}, che restituisce un'istanza di grafo Barabási-Albert di dimensione \texttt{n} in cui ogni nuovo nodo viene collegato nel procedimento iterativo a \texttt{m} nodi esistenti. Anche in questo caso il parametro \texttt{seed} regola il comportamento casuale della generazione, agendo in particolare sulla scelta dell'insieme di archi da creare ad ogni iterazione, permettendo così la replicabilità dell'esperimento. 
 
 \begin{algorithm}
 \SetAlgoLined
 \KwIn{numero di nodi $n$ e numero di archi $m$ da creare tra ogni nuovo nodo ed i nodi esistenti}
  inizializza un grafo $G$ con $m$ nodi\;
- $target$ = lista contenente gli $m$ nodi\;
+ $target$ = lista inizialmente contenente gli $m$ nodi iniziali\;
  $r$ = lista di nodi inizialmente vuota\;
  \While{{\upshape ci sono ancora nodi da aggiungere}}{
  	aggiungi un nuovo nodo al grafo\;
  	genera un arco tra il nuovo nodo e ogni nodo in $target$\;
- 	aggiungi il nuovo nodo $m$ volte e tutti i nodi di $target$ a $r$\;
- 	$target$ = sottoinsieme casuale di $r$\;
+ 	aggiungi il nuovo nodo $m$ volte a $r$\;
+ 	aggiungi tutti i nodi contenuti in $target$ a $r$\;
+ 	$target$ = sottoinsieme casuale di $r$ di cardinalità $m$\;
  }
  \Return{$G$}
  \caption{Generazione di un grafo di Barabási-Albert}
  \label{alg:bag}
 \end{algorithm}
 
+Sebbene rappresenti molto fedelmente per certi aspetti grafi reali, grazie soprattutto alla proprietà dell'invarianza di scala, il modello di generazione proposto da Barabási ed Albert non riesce a replicare altrettanto bene altre proprietà di queste reti, come ad esempio l'alto indice di clustering globale (proprietà che, al contrario, viene ricreata perfettamente dal modello di Watts-Strogatz). Per questo motivo sia il modello di Watts-Strogatz che quello di Barabási-Albert devono essere considerati come modelli solo parzialmente realistici.
+
 %----------------------------------NEW SECTION
 \newpage
 \section{Generazione delle istanze di problemi MIP}
-Terminata la generazione dei grafi, costituenti il \textit{dataset} grezzo alla base di questo lavoro, è stato necessario tradurre ciascuno di essi nella corrispondente formulazione in forma di problema di programmazione lineare intera. Per fare questo si è inizialmente dovuta stilare una modellazione algebrica del problema stesso, definendo variabili, vincoli e funzione obiettivo con cui rappresentarlo formalmente. Solo in un secondo momento è stato quindi possibile procedere con l'implementazione del modello nel software e la costruzione delle singole istanze, mediante l'ausilio di un'apposita libreria Python.
+Terminata la generazione dei grafi, costituenti il \textit{dataset} grezzo alla base di questo lavoro, è stato necessario ricavare a partire da ciascuno di essi il corrispondente problema di programmazione lineare intera del vertex cover minimo. Per fare questo è stato inizialmente necessario ricavare una modellazione algebrica del problema stesso, definendo variabili, vincoli e funzione obiettivo con cui rappresentarlo formalmente. Solo in un secondo momento è stato quindi possibile procedere con l'implementazione del modello nel software e la costruzione delle singole istanze, mediante l'ausilio di un'apposita libreria Python.
 
 \subsection{Modellazione algebrica}
-Un \textit{modello algebrico} di un problema di programmazione lineare intera è un modello che descrive le caratteristiche della soluzione ottima al problema mediante relazioni matematiche. Un modello algebrico è composto dai seguenti elementi:
+Un \textit{modello algebrico} di un problema di programmazione lineare intera è un modello che descrive le caratteristiche della soluzione ottima al problema mediante relazioni matematiche \cite{rop}. Un modello algebrico è composto dai seguenti elementi:
 \begin{itemize}
 \item \textsl{insiemi}, che raggruppano gli elementi del sistema permettendo l'indicizzazione delle grandezze trattate nel problema
 \item \textsl{parametri}, ossia quantità costanti e definite dalla formulazione del problema stesso, che solitamente sono delle proprietà degli insiemi precedentemente definiti
@@ -239,10 +254,14 @@ Un \textit{modello algebrico} di un problema di programmazione lineare intera è
 \item \textsl{funzione obiettivo}, che permette la traduzione di una soluzione del problema in un valore numerico, rendendone possibile di conseguenza l'ottimizzazione
 \end{itemize}
 
-Un modello algebrico di un problema di programmazione lineare permette quindi la definizione in forma dichiarativa delle caratteristiche della soluzione cercata. Durante la fase di modellazione formale del problema viene persa parte della potenza descrittiva caratteristica del linguaggio naturale, a vantaggio però della possibilità di utilizzare algoritmi particolarmente efficienti nella risoluzione dello stesso, che possono essere applicati solo quando il problema è definito in questa forma.
+Un modello algebrico di un problema di programmazione lineare permette quindi la definizione in forma dichiarativa delle caratteristiche della soluzione cercata, piuttosto che definire una strategia con cui eseguire la ricerca della soluzione stessa. Un modello di programmazione matematica potrebbe essere quindi paragonato ad un linguaggio dichiarativo, che descrive il risultato che si vuole ottenere, piuttosto che ad un linguaggio procedurale, che indica invece la sequenza di passi da percorrere per arrivare a quel risultato.
 
-La modellazione algebrica del problema non è, nel caso del problema analizzato in questo lavoro, particolarmente onerosa. Per prima cosa sono stati identificati gli insiemi del problema, ovvero
-\vspace{-0.5cm}
+Durante la fase di modellazione formale del problema viene persa parte della potenza descrittiva caratteristica del linguaggio naturale, a vantaggio però della possibilità di utilizzare algoritmi particolarmente efficienti nella risoluzione dello stesso, che possono essere applicati solo quando il problema è definito in questa forma.
+
+La modellazione algebrica non è stata, nel caso del problema analizzato in questo lavoro, particolarmente onerosa.
+
+\noindent
+Per prima cosa sono stati identificati gli insiemi del problema, ovvero
 \begin{align*}
 V \,  : \, \mbox{insieme dei vertici del grafo}\\
 E \, : \, \mbox{insieme degli archi del grafo}
@@ -274,9 +293,9 @@ Il modello algebrico del problema di programmazione lineare del minimo vertex co
 Al fine di tradurre le istanze di grafo generate con NetworkX in istanze di problemi MIP nella forma (\ref{eq:mipprob}) che potessero essere risolte da CPLEX è stata utilizzata un'altra libreria Python, Pyomo \cite{bynum2021pyomo}\cite{hart2011pyomo}. Si tratta anche in questo caso di una libreria open-source, stabile e largamente utilizzata per formulare, risolvere ed analizzare modelli per l'ottimizzazione.
 
 Una caratteristica molto importante di questa libreria, che è stata sfruttata in questo lavoro, è la separazione che viene mantenuta tra modello e dati.
-In particolare, Pyomo permette la definizione di un modello astratto, chiamato \texttt{AbstractModel}, che è definito secondo una struttura molto simile al modello algebrico e in cui non è richiesto che sia specificato nessun dato del problema. La definizione di questi ultimi sarà necessaria solo nel momento in cui si andrà a creare un'istanza concreta del modello stesso, chiamata \texttt{ConcreteModel}.
+In particolare, Pyomo permette la definizione di un modello astratto, chiamato \texttt{AbstractModel}, che è definito secondo una struttura molto simile al modello algebrico e in cui non è richiesto che sia specificato nessun dato del problema. La definizione di questi ultimi è stata necessaria solo in un momento successivo, quando per ciascuno dei grafi generati si è creato un'istanza reale del modello stesso, chiamata \texttt{ConcreteModel}.
 
-Le istanze generate in questo modo sono state salvate in file \texttt{lp}, formato utilizzato da CPLEX per il salvataggio di istanze di problemi di programmazione lineare in forma algebrica. 
+Le istanze generate in questo modo sono state salvate in file LP, formato utilizzato da CPLEX per il salvataggio di istanze di problemi di programmazione lineare in forma algebrica, che ha permesso di separare le fasi di generazione e risoluzione delle istanze stesse.
 
 
 %----------------------------------NEW SECTION
@@ -286,13 +305,12 @@ La risoluzione delle istanze di problemi di vertex cover precedentemente create 
 
 Proprio una di queste interfacce,  che permette di far dialogare software Python con il risolutore C, è stata utilizzata al fine di automatizzare il processo di risoluzione delle numerose istanze di problema. Si è infatti sviluppato un apposito script che permette di leggere i vari file \texttt{.lp} contenenti le istanze MIP e risolverli sequenzialmente, implementando in questo modo un processo di risoluzione di tipo \textit{batch}. 
 
-Gli output prodotti da CPLEX nella risoluzione di ciascuna istanza sono stati memorizzati su disco in file separati (uno per ciascuna istanza di problema), in modo tale da permettere in un secondo momento l'estrazione dei dati ritenuti interessanti mediante l'utilizzo di un parser sviluppato ad-hoc. Oltre agli output prodotti dal risolutore, per ogni istanza del problema sono stati memorizzati nel medesimo file anche due informazioni aggiuntive non comprese nell'output standard del risolutore, ovvero il gap tra lower bound del problema e soluzione trovata, utile nel caso in cui il problema vada in \textit{time limit} per valutare l'ottimalità della soluzione trovata, e il valore della funzione obiettivo terminata la risoluzione, corrispondente alla cardinalità dell'insieme vertex cover trovato come soluzione.
+Gli output prodotti da CPLEX nella risoluzione di ciascuna istanza sono stati memorizzati su disco in file separati (uno per ciascuna istanza di problema), in modo tale da permettere in un secondo momento l'estrazione dei dati ritenuti interessanti mediante l'utilizzo di un parser sviluppato ad-hoc. 
+
+Oltre agli output prodotti dal risolutore, per ogni istanza del problema sono stati memorizzati nel medesimo file anche due informazioni aggiuntive non comprese nell'output standard del risolutore, ovvero il gap tra lower bound del problema e soluzione trovata, utile nel caso in cui il problema vada in \textit{time limit} per valutare l'ottimalità della soluzione trovata, e il valore della funzione obiettivo terminata la risoluzione, corrispondente alla cardinalità dell'insieme vertex cover trovato come soluzione.
 
 %Viene riportati di seguito, a scopo esemplificativo, il contenuto di uno dei file \linebreak (\texttt{rrg\_00011.txt}) generati dallo script di risoluzione.
-%\newpage
-%\begin{verbatim}
-%file_00011.txt
-%\end{verbatim}
+%
 %\scriptsize
 %\begin{quote}
 %\begin{verbatim}
@@ -345,7 +363,9 @@ Gli output prodotti da CPLEX nella risoluzione di ciascuna istanza sono stati me
 %----------------------------------NEW SECTION
 
 \section{Estrazione ed analisi dei risultati}
-L'estrazione dei dati dai file di testo contenenti gli output del risolutore è stata anch'essa implementata mediante un semplice script dedicato, sviluppato in linguaggio Python. Lo script permette, in maniera sequenziale, di leggere tutti i file contenenti gli output del risolutore in una specifica cartella e produrre, a partire da questi ultimi, un file CSV (\textit{Comma-Separated Values}, formato di file basato su file di testo molto utilizzato nell'importazione ed esportazione di una tabella di dati) per ciascuna delle classi di grafo analizzate. Un esempio della struttura di uno dei quattro file CSV ottenuti come output è riportato in Figura \ref{fig:csv}.
+L'estrazione dei dati dai file di testo contenenti gli output del risolutore è stata anch'essa implementata mediante un semplice script dedicato, sviluppato in linguaggio Python. Lo script permette, in maniera sequenziale, di leggere tutti i file contenenti gli output del risolutore in una specifica cartella e produrre, a partire da questi ultimi, un file CSV (\textit{Comma-Separated Values}, formato di file basato su file di testo molto utilizzato nell'importazione ed esportazione di una tabella di dati) per ciascuna delle classi di grafo analizzate. 
+
+I file CSV sono stati utilizzati per salvare tutti i dati utilizzati poi nella successiva fase di elaborazione in un formato facilmente interpretabile da moltissimi software di elaborazione dati. Un esempio della struttura di uno dei quattro file CSV ottenuti come output è riportato in Figura \ref{fig:csv}.
 
 \begin{figure}[h!]
      \centering
@@ -354,43 +374,45 @@ L'estrazione dei dati dai file di testo contenenti gli output del risolutore è 
         \label{fig:csv}
 \end{figure}
 
-Come si può notare dalla figura precedente, per ognuna delle istanze sono stati salvati diversi dati sulla risoluzione e sul grafo associato al problema di ottimizzazione. Una breve spiegazione di ciascuno di essi è stata riportata in Tabella \ref{tab:par}.
+Come si può notare dalla figura precedente, per ognuna delle istanze sono stati salvati diversi dati sulla risoluzione e sul grafo associato al problema di ottimizzazione. 
 
-\begin{table}[ht]
-\centering
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|p{0.35\linewidth} | p{0.6\linewidth}|}
-\hline
-\textsf{name} & codice univoco associato a ciascuna delle istanze di grafo generate\\
-\hline
-\textsf{parametri generazione del grafo}& combinazione dei parametri con cui è stata generata l'istanza di grafo; a diverse tipologie di grafo corrispondono diversi insiemi di parametri\\
-\hline
-\textsf{seed} & seme random utilizzato nella generazione del grafo\\
-\hline
-\textsf{time} & tempo impiegato dal risolutore a trovare una soluzione ottima o, in alternativa, il TIME\_LIMIT imposto\\
-\hline
-\textsf{ticks} & misura effettuata da CPLEX di quanto il risolutore ha impiegato a risolvere l'istanza del problema\\
-\hline
-\textsf{sol\_nodes} & cardinalità del vertex cover individuato, che corrisponde al valore della funzione obiettivo al termine dell'ultima iterazione\\
-\hline
-\textsf{gap} & gap di ottimalità tra soluzione trovata e lower bound al valore della soluzione\\
-\hline
-\textsf{time\_limit} & valore booleano che specifica se il risolutore è andato in TIME\_LIMIT o meno\\
-\hline
-\textsf{edges} & numero di archi dell'istanza di grafo\\
-\hline
-\textsf{cnnct\_cmp} & numero di componenti connesse dell'istanza di grafo\\
-\hline
-\textsf{avg\_clust} & indice di clustering globale medio del grafo\\
-\hline
-\textsf{avg\_deg} & grado medio dei nodi del grafo \\
-\hline
-\textsf{std\_deg} & deviazione standard tra i gradi dei nodi del grafo \\
-\hline
-\end{tabular}}
-\caption{Informazioni estratte per ogni istanza di problema di vertex cover risolta.} 
-\label{tab:par}
-\end{table} 
+%Una breve spiegazione di ciascuno di essi è stata riportata in Tabella \ref{tab:par}.
+%
+%\begin{table}[ht]
+%\centering
+%\resizebox{\textwidth}{!}{
+%\begin{tabular}{|p{0.35\linewidth} | p{0.6\linewidth}|}
+%\hline
+%\textsf{name} & codice univoco associato a ciascuna delle istanze di grafo generate\\
+%\hline
+%\textsf{parametri generazione del grafo}& combinazione dei parametri con cui è stata generata l'istanza di grafo; a diverse tipologie di grafo corrispondono diversi insiemi di parametri\\
+%\hline
+%\textsf{seed} & seme random utilizzato nella generazione del grafo\\
+%\hline
+%\textsf{time} & tempo impiegato dal risolutore a trovare una soluzione ottima o, in alternativa, il TIME\_LIMIT imposto\\
+%\hline
+%\textsf{ticks} & misura effettuata da CPLEX di quanto il risolutore ha impiegato a risolvere l'istanza del problema\\
+%\hline
+%\textsf{sol\_nodes} & cardinalità del vertex cover individuato, che corrisponde al valore della funzione obiettivo al termine dell'ultima iterazione\\
+%\hline
+%\textsf{gap} & gap di ottimalità tra soluzione trovata e lower bound al valore della soluzione\\
+%\hline
+%\textsf{time\_limit} & valore booleano che specifica se il risolutore è andato in TIME\_LIMIT o meno\\
+%\hline
+%\textsf{edges} & numero di archi dell'istanza di grafo\\
+%\hline
+%\textsf{cnnct\_cmp} & numero di componenti connesse dell'istanza di grafo\\
+%\hline
+%\textsf{avg\_clust} & indice di clustering globale medio del grafo\\
+%\hline
+%\textsf{avg\_deg} & grado medio dei nodi del grafo \\
+%\hline
+%\textsf{std\_deg} & deviazione standard tra i gradi dei nodi del grafo \\
+%\hline
+%\end{tabular}}
+%\caption{Informazioni estratte per ogni istanza di problema di vertex cover risolta.} 
+%\label{tab:par}
+%\end{table} 
 
 L'analisi dei dati estratti è stata infine svolta con il supporto di un Jupyter Notebook \cite{jupyter}, applicazione web open-source che permette di coniugare in un unico documento testo ed esecuzione di codice. 
 
