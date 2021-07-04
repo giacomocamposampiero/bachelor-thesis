@@ -129,6 +129,7 @@ Il metodo di NetworkX utilizzato nella generazione di questa tipologia di grafi 
 
 
 \subsection{Modello di Watts-Strogatz}
+\label{subsec:watts}
 Il modello di Watts-Strogatz è un modello per la generazione di grafi casuali presentato nel 1998 da Duncan J. Watts e Steven Strogatz \cite{watts_collective_1998}, la cui caratteristica principale risiede nel possedere proprietà \textit{small-world}. 
 
 Il concetto di small-world venne introdotto per la prima volta nel 1967 dallo psicologo statunitense Stanley Milgram nella sua serie di esperimenti mirata ad esaminare la lunghezza media dei percorsi delle reti sociali tra residenti negli Stati Uniti (popolarmente conosciuti con il nome di "\textit{six degrees of separation}") \cite{milgram_small-world_1967}. In questi esperimenti Milgram ipotizzò l'aderenza dei contesti sociali da lui analizzati ad un modello a "\textit{piccolo mondo}", composto da una rete di collegamenti tra persone relativamente breve.  
@@ -188,7 +189,7 @@ Questo modello di generazione presenta tuttavia diverse limitazioni. La principa
 
 \subsection{Modello di Barabási-Albert}
 \label{subsec:barab}
-Tutti i modelli visti fino a questo momento mancano di due aspetti fondamentali che caratterizzano invece i grafi reali. Per prima cosa, viene sempre assunta la presenza di un numero fisso di vertici nel grafo. Al contrario, molte delle delle reti nel mondo reale sono composte da un insieme di vertici che solitamente tende a crescere nel tempo. Alcuni esempi di grafi che hanno questo comportamento sono il World Wide Web, che cresce esponenzialmente con l'aggiunta di nuove pagine Web, e la letteratura scientifica, che cresce anch'essa nel tempo con la pubblicazione di nuovi articoli. 
+Tutti i modelli visti fino a questo momento mancano di due aspetti fondamentali che caratterizzano invece i grafi reali. Per prima cosa, viene sempre assunta la presenza di un numero fisso di vertici nel grafo. Al contrario, molte delle delle reti nel mondo reale sono composte da un insieme di vertici che solitamente tende a crescere nel tempo. Alcuni esempi di grafi che hanno questo comportamento sono il World Wide Web (WWW), che cresce esponenzialmente con l'aggiunta di nuove pagine Web, e la letteratura scientifica, che cresce anch'essa nel tempo con la pubblicazione di nuovi articoli. 
 
 In secondo luogo, nessuno dei modelli trattati in precedenza tiene conto del cosiddetto \textit{preferential attachment}, fenomeno per cui i nodi che si aggiungono alla rete sono solitamente più propensi a creare connessioni con nodi che hanno già un gran numero di connessioni con altri nodi. Ritornando agli esempi già citati del WWW e della letteratura scientifica, è più probabile che una nuova pagina Web includa link a pagine Web più conosciute e già referenziate da molte altre pagine, così come è molto probabile che un nuovo paper scientifico includa riferimenti ad altri paper influenti e già citati in molti altri lavori. 
 
